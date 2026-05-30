@@ -1,560 +1,244 @@
 /* ==========================================
-   LOADER
+   STACKLY FOUNDATION — script.js
 ========================================== */
 
+/* ---------- LOADER ---------- */
 window.addEventListener("load", () => {
   const loader = document.getElementById("loader");
-
   setTimeout(() => {
     loader.style.opacity = "0";
-
-    setTimeout(() => {
-      loader.style.display = "none";
-    }, 500);
-
-  }, 800);
+    setTimeout(() => { loader.style.display = "none"; }, 600);
+  }, 1000);
 });
 
-/* ==========================================
-   MOBILE MENU
-========================================== */
+/* ---------- PARTICLES ---------- */
+(function createParticles() {
+  const container = document.getElementById("particles");
+  if (!container) return;
+  const count = window.innerWidth < 768 ? 15 : 30;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("div");
+    p.className = "particle";
+    const size = Math.random() * 3 + 1.5;
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${size}px;
+      height: ${size}px;
+      animation-duration: ${Math.random() * 18 + 14}s;
+      animation-delay: ${Math.random() * 16}s;
+    `;
+    container.appendChild(p);
+  }
+})();
 
-const menuBtn = document.querySelector(".menu-btn");
-const navLinks = document.querySelector(".nav-links");
+/* ---------- NAVBAR ---------- */
+const header  = document.getElementById("header");
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+window.addEventListener("scroll", () => {
+  header.classList.toggle("scrolled", window.scrollY > 80);
+});
 
 if (menuBtn) {
-
   menuBtn.addEventListener("click", () => {
-
-    navLinks.classList.toggle("active");
-
-    if (navLinks.classList.contains("active")) {
-      menuBtn.innerHTML =
-        '<i class="fas fa-times"></i>';
-    } else {
-      menuBtn.innerHTML =
-        '<i class="fas fa-bars"></i>';
-    }
-
+    const open = navLinks.classList.toggle("open");
+    menuBtn.classList.toggle("open", open);
+    document.body.style.overflow = open ? "hidden" : "";
   });
-
 }
 
-/* ==========================================
-   CLOSE MENU ON LINK CLICK
-========================================== */
-
-document.querySelectorAll(".nav-links a")
-.forEach(link => {
-
+// Close nav on link click
+document.querySelectorAll(".nav-links a").forEach(link => {
   link.addEventListener("click", () => {
-
-    navLinks.classList.remove("active");
-
-    if (menuBtn) {
-     menuBtn.innerHTML = '✕';
-    }
-
+    navLinks.classList.remove("open");
+    menuBtn.classList.remove("open");
+    document.body.style.overflow = "";
   });
-
 });
 
-/* ==========================================
-   DARK MODE
-========================================== */
+/* ---------- ACTIVE NAV ON SCROLL ---------- */
+const sections = document.querySelectorAll("section[id]");
+const navAnchors = document.querySelectorAll(".nav-links a");
 
+window.addEventListener("scroll", () => {
+  let current = "";
+  sections.forEach(sec => {
+    if (pageYOffset >= sec.offsetTop - 160) current = sec.getAttribute("id");
+  });
+  navAnchors.forEach(a => {
+    a.classList.remove("active");
+    if (a.getAttribute("href") === `#${current}`) a.classList.add("active");
+  });
+});
 
+/* ---------- HERO SLIDER ---------- */
+const slides = document.querySelectorAll(".hero-slide");
+const dotsContainer = document.getElementById("sliderDots");
+let currentSlide = 0;
 
-/* ==========================================
-   COUNTER ANIMATION
-========================================== */
+// Create dots
+slides.forEach((_, i) => {
+  const dot = document.createElement("div");
+  dot.className = "slider-dot" + (i === 0 ? " active" : "");
+  dot.addEventListener("click", () => goToSlide(i));
+  dotsContainer.appendChild(dot);
+});
 
-const counters =
-document.querySelectorAll(".counter");
+function goToSlide(idx) {
+  slides[currentSlide].classList.remove("active");
+  document.querySelectorAll(".slider-dot")[currentSlide].classList.remove("active");
+  currentSlide = idx;
+  slides[currentSlide].classList.add("active");
+  document.querySelectorAll(".slider-dot")[currentSlide].classList.add("active");
+}
 
-let counterStarted = false;
+const sliderInterval = setInterval(() => {
+  goToSlide((currentSlide + 1) % slides.length);
+}, 4500);
+
+/* ---------- SCROLL REVEAL ---------- */
+function revealOnScroll() {
+  const items = document.querySelectorAll(".reveal");
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+        obs.unobserve(entry.target);
+        // trigger counters
+        if (entry.target.classList.contains("impact") && !counterDone) {
+          counterDone = true;
+          setTimeout(runCounters, 400);
+        }
+        // trigger donation bar
+        if (entry.target.classList.contains("donation")) {
+          setTimeout(() => {
+            const fill = document.getElementById("progressFill");
+            if (fill) fill.style.width = "75%";
+          }, 400);
+        }
+      }
+    });
+  }, { threshold: 0.07, rootMargin: "0px 0px -50px 0px" });
+  items.forEach(el => obs.observe(el));
+}
+document.addEventListener("DOMContentLoaded", revealOnScroll);
+revealOnScroll();
+
+/* ---------- COUNTER ---------- */
+let counterDone = false;
 
 function runCounters() {
+  document.querySelectorAll(".counter").forEach(counter => {
+    const target = +counter.dataset.target;
+    const duration = 1800;
+    const step = Math.ceil(duration / 60);
+    let start = null;
 
-  counters.forEach(counter => {
-
-    const target =
-    +counter.getAttribute("data-target");
-
-    const updateCounter = () => {
-
-      const count =
-      +counter.innerText;
-
-      const increment =
-      target / 150;
-
-      if (count < target) {
-
-        counter.innerText =
-        Math.ceil(
-          count + increment
-        );
-
-        setTimeout(
-          updateCounter,
-          15
-        );
-
-      } else {
-
-        counter.innerText =
-        target.toLocaleString() + "+";
-
-      }
-
+    const tick = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      // easeOutExpo
+      const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const value = Math.floor(eased * target);
+      counter.textContent = value.toLocaleString("en-IN") + (progress === 1 ? "+" : "");
+      if (progress < 1) requestAnimationFrame(tick);
     };
-
-    updateCounter();
-
+    requestAnimationFrame(tick);
   });
-
 }
 
-window.addEventListener("scroll", () => {
-
-  const impact =
-  document.querySelector(".impact");
-
-  if (!impact) return;
-
-  const triggerPoint =
-  impact.offsetTop - 500;
-
-  if (
-    window.scrollY >
-    triggerPoint &&
-    !counterStarted
-  ) {
-
-    runCounters();
-    counterStarted = true;
-
-  }
-
+/* ---------- FAQ ACCORDION ---------- */
+document.querySelectorAll(".faq-item").forEach(item => {
+  item.querySelector(".faq-question").addEventListener("click", () => {
+    const isActive = item.classList.contains("active");
+    document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("active"));
+    if (!isActive) item.classList.add("active");
+  });
 });
 
-/* ==========================================
-   REVEAL ANIMATION
-========================================== */
-
-function revealSections() {
-
-  const reveals =
-  document.querySelectorAll(".reveal");
-
-  reveals.forEach(section => {
-
-    const windowHeight =
-    window.innerHeight;
-
-    const revealTop =
-    section.getBoundingClientRect().top;
-
-    const revealPoint = 120;
-
-    if (
-      revealTop <
-      windowHeight - revealPoint
-    ) {
-
-      section.classList
-      .add("active");
-
-    }
-
+/* ---------- DONATION AMOUNT BUTTONS ---------- */
+document.querySelectorAll(".da-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".da-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    const customInput = document.getElementById("customAmt");
+    if (customInput) customInput.value = "";
   });
-
-}
-
-window.addEventListener(
-  "scroll",
-  revealSections
-);
-
-revealSections();
-
-/* ==========================================
-   TESTIMONIAL SLIDER
-========================================== */
-
-const testimonials =
-document.querySelectorAll(
-  ".testimonial"
-);
-
-let testimonialIndex = 0;
-
-function testimonialSlider() {
-
-  if (
-    testimonials.length === 0
-  ) return;
-
-  testimonials.forEach(item => {
-    item.classList.remove("active");
-  });
-
-  testimonialIndex++;
-
-  if (
-    testimonialIndex >
-    testimonials.length
-  ) {
-
-    testimonialIndex = 1;
-
-  }
-
-  testimonials[
-    testimonialIndex - 1
-  ].classList.add("active");
-
-}
-
-setInterval(
-  testimonialSlider,
-  5000
-);
-
-/* ==========================================
-   FAQ ACCORDION
-========================================== */
-
-const faqItems =
-document.querySelectorAll(
-  ".faq-item"
-);
-
-faqItems.forEach(item => {
-
-  const question =
-  item.querySelector(
-    ".faq-question"
-  );
-
-  question.addEventListener(
-    "click",
-    () => {
-
-      item.classList
-      .toggle("active");
-
-    }
-  );
-
 });
 
-/* ==========================================
-   DONATION PROGRESS
-========================================== */
+document.getElementById("customAmt")?.addEventListener("input", () => {
+  document.querySelectorAll(".da-btn").forEach(b => b.classList.remove("active"));
+});
 
-const progressFill =
-document.getElementById(
-  "progressFill"
-);
-
-if (progressFill) {
-
-  progressFill.style.width =
-  "0%";
-
-  setTimeout(() => {
-
-    progressFill.style.transition =
-    "2s ease";
-
-    progressFill.style.width =
-    "75%";
-
-  }, 1000);
-
-}
-
-/* ==========================================
-   BACK TO TOP BUTTON
-========================================== */
-
-const topBtn =
-document.getElementById(
-  "topBtn"
-);
-
-window.addEventListener(
-  "scroll",
-  () => {
-
-    if (!topBtn) return;
-
-    if (
-      window.scrollY > 400
-    ) {
-
-      topBtn.style.display =
-      "block";
-
-    } else {
-
-      topBtn.style.display =
-      "none";
-
-    }
-
-  }
-);
-
-if (topBtn) {
-
-  topBtn.addEventListener(
-    "click",
-    () => {
-
-      window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-      });
-
-    }
-  );
-
-}
-
-/* ==========================================
-   ACTIVE NAVIGATION
-========================================== */
-
-const sections =
-document.querySelectorAll(
-  "section[id]"
-);
-
-const navItems =
-document.querySelectorAll(
-  ".nav-links a"
-);
-
-window.addEventListener(
-  "scroll",
-  () => {
-
-    let current = "";
-
-    sections.forEach(section => {
-
-      const sectionTop =
-      section.offsetTop - 150;
-
-      const sectionHeight =
-      section.clientHeight;
-
-      if (
-        pageYOffset >=
-        sectionTop
-      ) {
-
-        current =
-        section.getAttribute(
-          "id"
-        );
-
-      }
-
-    });
-
-    navItems.forEach(link => {
-
-      link.classList.remove(
-        "current"
-      );
-
-      if (
-        link.getAttribute(
-          "href"
-        ) === `#${current}`
-      ) {
-
-        link.classList.add(
-          "current"
-        );
-
-      }
-
-    });
-
-  }
-);
-
-/* ==========================================
-   NEWSLETTER FORM
-========================================== */
-
-const newsletterForm =
-document.querySelector(".newsletter form");
-
-if (newsletterForm) {
-
-  newsletterForm.addEventListener("submit", e => {
-
+/* ---------- NEWSLETTER FORM ---------- */
+const nlForm = document.getElementById("newsletterForm");
+if (nlForm) {
+  nlForm.addEventListener("submit", e => {
     e.preventDefault();
+    const btn = nlForm.querySelector("button");
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
+    btn.style.background = "#22c55e";
+    setTimeout(() => {
+      btn.innerHTML = orig;
+      btn.style.background = "";
+      nlForm.reset();
+    }, 2500);
+  });
+}
 
-    const newsletterMessage =
-    document.getElementById("newsletterMessage");
-
-    const emailInput =
-    newsletterForm.querySelector('input[type="email"]');
-
-    if(emailInput.value.trim() === ""){
-
-      newsletterMessage.style.color = "#ff6b6b";
-      newsletterMessage.textContent =
-      "Please enter your email address.";
-
+/* ---------- CONTACT FORM ---------- */
+const contactForm = document.getElementById("contactForm");
+if (contactForm) {
+  contactForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const name  = contactForm.querySelector('input[type="text"]').value.trim();
+    const email = contactForm.querySelector('input[type="email"]').value.trim();
+    const msg   = document.getElementById("contactMsg");
+    if (!name || !email) {
+      msg.style.color = "#f87171";
+      msg.textContent = "Please fill in all required fields.";
       return;
     }
-
-   newsletterForm.reset();
-
-window.location.href = "index.html";
-
+    const btn = contactForm.querySelector(".btn-primary");
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+    btn.disabled = true;
+    msg.style.color = "#a3e635";
+    msg.textContent = "Thank you! We'll get back to you within 24 hours.";
+    setTimeout(() => {
+      btn.innerHTML = orig;
+      btn.disabled = false;
+      msg.textContent = "";
+      contactForm.reset();
+    }, 3500);
   });
-
 }
 
-/* ==========================================
-   CONTACT FORM
-========================================== */
-
-const contactForm =
-document.querySelector(
-  ".contact-form"
-);
-
-if (contactForm) {
-
-  contactForm.addEventListener(
-    "submit",
-    e => {
-
-      e.preventDefault();
-
-      const name =
-      contactForm.querySelector(
-        'input[type="text"]'
-      ).value;
-
-      const email =
-      contactForm.querySelector(
-        'input[type="email"]'
-      ).value;
-
-      if (
-        name.trim() === "" ||
-        email.trim() === ""
-      ) {
-
-       const contactMessage =
-document.getElementById("contactMessage");
-
-contactMessage.style.color = "#ff6b6b";
-contactMessage.textContent =
-"Please fill all fields.";
-
-return;
-      }
-
-
-     newsletterForm.reset();
-
-window.location.href = "404.html";
-
-    }
-  );
-
-}
-
-/* ==========================================
-   SMOOTH CARD HOVER EFFECT
-========================================== */
-
-const cards =
-document.querySelectorAll(
-  ".program-card, .team-card, .impact-card"
-);
-
-cards.forEach(card => {
-
-  card.addEventListener(
-    "mouseenter",
-    () => {
-
-      card.style.transition =
-      ".4s ease";
-
-    }
-  );
-
+/* ---------- BACK TO TOP ---------- */
+const topBtn = document.getElementById("topBtn");
+window.addEventListener("scroll", () => {
+  if (!topBtn) return;
+  topBtn.style.display = window.scrollY > 500 ? "flex" : "none";
+  topBtn.style.alignItems = "center";
+  topBtn.style.justifyContent = "center";
+});
+topBtn?.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-/* ==========================================
-   AUTO YEAR
-========================================== */
+/* ---------- AUTO YEAR ---------- */
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-const copyright =
-document.querySelector(
-  ".copyright"
-);
-
-if (
-  copyright &&
-  copyright.innerHTML.includes("2026")
-) {
-
-  copyright.innerHTML =
-  `© ${new Date().getFullYear()} Stackly Foundation. All Rights Reserved.`;
-
-}
-
-/* ==========================================
-   HERO SLIDER
-========================================== */
-
-const slides = document.querySelectorAll(".hero-slide");
-
-let current = 0;
-
-setInterval(() => {
-
-slides[current].classList.remove("active");
-
-current++;
-
-if(current >= slides.length){
-current = 0;
-}
-
-slides[current].classList.add("active");
-
-}, 3000);
-
-/* ==========================================
-    NAVBAR SCROLL EFFECT
-========================================== */
-const navbar = document.querySelector(".navbar");
-
-window.addEventListener("scroll", () => {
-
-  if(window.scrollY > 100){
-    navbar.classList.add("scrolled");
-  }else{
-    navbar.classList.remove("scrolled");
-  }
-
+/* ---------- SMOOTH ANCHOR SCROLL ---------- */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function(e) {
+    const target = document.querySelector(this.getAttribute("href"));
+    if (!target) return;
+    e.preventDefault();
+    const offset = 80;
+    window.scrollTo({ top: target.offsetTop - offset, behavior: "smooth" });
+  });
 });
