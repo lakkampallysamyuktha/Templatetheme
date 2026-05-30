@@ -173,7 +173,7 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
 }
 
 /* ==========================================
-   LOADER
+   LOADER — GREEN (fixed from yellow)
 ========================================== */
 #loader {
   position: fixed;
@@ -192,7 +192,8 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
   margin: 0 auto 16px;
   display: block;
   animation: logoFloat 2.5s ease-in-out infinite;
-  filter: brightness(0) saturate(100%) invert(79%) sepia(89%) saturate(956%) hue-rotate(25deg) brightness(105%) contrast(95%) drop-shadow(0 0 12px rgba(163,230,53,0.5));
+  /* GREEN filter — not yellow */
+  filter: brightness(0) saturate(100%) invert(79%) sepia(55%) saturate(800%) hue-rotate(46deg) brightness(105%) contrast(97%) drop-shadow(0 0 14px rgba(163,230,53,0.6));
 }
 @keyframes logoFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 .loader-wordmark {
@@ -205,7 +206,7 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
 .loader-tagline {
   font-size: 0.75rem;
   letter-spacing: 6px;
-  color: var(--green);
+  color: var(--green);   /* GREEN */
   text-transform: uppercase;
   margin-bottom: 28px;
 }
@@ -221,6 +222,7 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
   display: block;
   width: 60%;
   height: 100%;
+  /* GREEN gradient */
   background: linear-gradient(90deg, transparent, var(--green), transparent);
   animation: loaderBar 1.2s ease-in-out infinite;
 }
@@ -234,9 +236,7 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
 ========================================== */
 #header {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 1000;
   transition: var(--transition);
 }
@@ -255,7 +255,7 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
 }
 .nav-logo { display: inline-flex; align-items: center; }
 .nav-logo-img {
-  height: 64px;
+  height: 80px;
   width: auto;
   object-fit: contain;
   filter: brightness(0) saturate(100%) invert(76%) sepia(55%) saturate(600%) hue-rotate(46deg) brightness(102%) contrast(97%);
@@ -265,13 +265,15 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
 
 .footer-logo { display: inline-flex; align-items: center; }
 .footer-logo-img {
-  height: 72px;
+  height: 100px;
   width: auto;
   object-fit: contain;
   filter: brightness(0) saturate(100%) invert(76%) sepia(55%) saturate(600%) hue-rotate(46deg) brightness(102%) contrast(97%);
   display: block;
   margin-bottom: 4px;
 }
+
+/* Desktop nav links */
 .nav-links {
   display: flex;
   align-items: center;
@@ -290,7 +292,11 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
   color: var(--green);
   background: rgba(163,230,53,0.06);
 }
+
+/* Hide close btn & donate CTA on desktop */
+.nav-close-li { display: none; }
 .nav-cta-li { display: none; }
+
 .nav-donate-desktop {
   display: inline-flex;
   align-items: center;
@@ -305,30 +311,71 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
 }
 .nav-donate-desktop:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(163,230,53,0.35); }
 .nav-right { display: flex; align-items: center; gap: 16px; }
+
+/* =============================================
+   HAMBURGER BUTTON — Professional
+============================================= */
 .menu-btn {
   display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  width: 40px;
-  height: 40px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  background: rgba(163, 230, 53, 0.08);
+  border: 1.5px solid rgba(163, 230, 53, 0.25);
+  border-radius: 12px;
   cursor: pointer;
+  transition: 0.3s;
+  position: relative;
+  z-index: 10001;
+}
+.menu-btn:hover {
+  background: rgba(163, 230, 53, 0.15);
+  border-color: var(--green);
 }
 .menu-btn span {
   display: block;
   width: 20px;
   height: 2px;
-  background: #fff;
+  background: var(--green);
   border-radius: 2px;
+  transition: 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: center;
+}
+/* Animate to X */
+.menu-btn.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.menu-btn.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.menu-btn.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile nav close button inside menu */
+.nav-close-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.6);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
   transition: 0.3s;
 }
-.menu-btn.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.menu-btn.open span:nth-child(2) { opacity: 0; }
-.menu-btn.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.nav-close-btn:hover {
+  background: rgba(163,230,53,0.12);
+  color: var(--green);
+  border-color: var(--green);
+}
 
 /* ==========================================
    BACK TO TOP
@@ -383,8 +430,9 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
   position: relative;
   z-index: 3;
   text-align: center;
-  padding: 0 20px;
+  padding: 120px 20px 40px; /* top padding ensures badge never overlaps navbar */
   max-width: 800px;
+  width: 100%;
 }
 .hero-badge {
   display: inline-flex;
@@ -407,6 +455,7 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
   background: var(--green);
   border-radius: 50%;
   animation: pulseDot 1.5s ease infinite;
+  flex-shrink: 0;
 }
 @keyframes pulseDot {
   0%,100% { box-shadow: 0 0 0 0 rgba(163,230,53,0.5); }
@@ -444,6 +493,7 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
   justify-content: center;
   align-items: center;
   gap: 32px;
+  flex-wrap: wrap;
   animation: fadeInUp 1s ease 0.6s both;
 }
 .hs { text-align: center; }
@@ -552,6 +602,7 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
   border-radius: var(--radius);
   text-align: center;
   box-shadow: 0 12px 30px rgba(163,230,53,0.3);
+  z-index: 2;
 }
 .abf-number { font-family: var(--font-display); font-size: 2rem; font-weight: 900; line-height: 1; }
 .abf-text { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
@@ -1007,10 +1058,8 @@ em { font-family: var(--font-display); font-style: italic; color: var(--green); 
 .newsletter-inner::before {
   content: '';
   position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 400px;
-  height: 400px;
+  top: -50%; right: -10%;
+  width: 400px; height: 400px;
   background: radial-gradient(circle, rgba(163,230,53,0.06) 0%, transparent 70%);
   pointer-events: none;
 }
@@ -1170,7 +1219,7 @@ footer {
 .footer-social a:hover { background: var(--green); color: #04080f; border-color: var(--green); transform: translateY(-3px); }
 .footer-col { display: flex; flex-direction: column; gap: 0; }
 .footer-col h4 { font-size: 0.85rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
-.footer-col a { color: var(--muted); font-size: 0.88rem; padding: 5px 0; transition: 0.3s; display: flex; align-items: center; gap: 0; }
+.footer-col a { color: var(--muted); font-size: 0.88rem; padding: 5px 0; transition: 0.3s; display: flex; align-items: center; }
 .footer-col a:hover { color: var(--green); padding-left: 6px; }
 .fc-info { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); font-size: 0.85rem; margin-bottom: 12px; }
 .fc-info i { color: var(--green); margin-top: 2px; flex-shrink: 0; }
@@ -1201,11 +1250,12 @@ footer {
 .footer-bottom-links a:hover { color: var(--green); }
 
 /* ==========================================
-   RESPONSIVE
+   RESPONSIVE — TABLET 1100px
 ========================================== */
 @media (max-width: 1100px) {
   .about-grid { grid-template-columns: 1fr; gap: 60px; }
   .about-img-float { right: -16px; bottom: -16px; width: 140px; height: 140px; }
+  .about-badge-float { left: 16px; }
   .impact-grid { grid-template-columns: repeat(2, 1fr); }
   .programs-grid { grid-template-columns: repeat(2, 1fr); }
   .donation-inner { grid-template-columns: 1fr; gap: 48px; }
@@ -1216,13 +1266,26 @@ footer {
   .faq-left { position: static; }
 }
 
+/* ==========================================
+   RESPONSIVE — MOBILE 768px
+========================================== */
 @media (max-width: 768px) {
   .container { padding: 0 20px; }
 
-  /* Nav */
+  /* ---- NAV MOBILE ---- */
   .nav-donate-desktop { display: none; }
   .menu-btn { display: flex; }
   .nav-cta-li { display: list-item; }
+  .nav-close-li {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 24px 0;
+    width: 100%;
+  }
+
+  .nav-logo-img { height: 60px; }
+
+  /* Full-screen overlay menu */
   .nav-links {
     position: fixed;
     top: 0; left: -100%;
@@ -1231,61 +1294,106 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     transition: left 0.45s cubic-bezier(0.25,1,0.5,1);
-    z-index: 9999;
+    z-index: 10000;
     backdrop-filter: blur(20px);
   }
   .nav-links.open { left: 0; }
-  .nav-links li a { font-size: 1.1rem; padding: 12px 28px; }
+  .nav-links li a {
+    font-size: 1.15rem;
+    padding: 13px 32px;
+    border-radius: 10px;
+    display: block;
+    text-align: center;
+  }
   .nav-cta-li .nav-donate-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 28px;
+    padding: 13px 32px;
     background: linear-gradient(135deg, var(--green), var(--green-3));
     color: #04080f;
     font-weight: 700;
     border-radius: 50px;
     font-size: 0.95rem;
+    margin-top: 8px;
   }
 
-  /* Sections */
+  /* ---- HERO MOBILE ---- */
+  .hero-content {
+    padding: 100px 20px 80px;  /* enough top space so badge stays below navbar */
+  }
+  .hero-badge {
+    font-size: 0.7rem;
+    padding: 7px 14px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  .hero-title { font-size: clamp(2.2rem, 8vw, 3rem); }
+  .hero-sub { font-size: 0.92rem; margin-bottom: 28px; }
+  .hero-actions { gap: 12px; margin-bottom: 40px; }
+  .hero-stats { gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .hs strong { font-size: 1.2rem; }
+  .hs-div { width: 1px; height: 28px; }
+  .hero-scroll-hint { display: none; }
+  .hero-slider-dots { right: 16px; bottom: 24px; }
+
+  /* ---- SECTIONS ---- */
   .about { padding: 80px 0; }
-  .about-badge-float { left: 0; top: 20px; }
+  .about-badge-float { left: 8px; top: 20px; }
+  .about-img-float { width: 120px; height: 120px; right: 8px; bottom: 8px; }
+  .about-features { grid-template-columns: 1fr; }
+
   .impact { padding: 80px 0; }
   .impact-grid { grid-template-columns: 1fr 1fr; }
   .impact-card { padding: 32px 20px; }
   .impact-card h3 { font-size: 2.5rem; }
+
   .programs { padding: 80px 0; }
   .programs-grid { grid-template-columns: 1fr; }
+
   .donation { padding: 80px 0; }
+  .donation-progress-card { padding: 28px 20px; }
+
   .team { padding: 80px 0; }
   .team-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
+
   .gallery { padding: 80px 0; }
+  .gallery-item { width: 240px; height: 180px; }
+
   .testimonials { padding: 80px 0; }
   .testi-grid { grid-template-columns: 1fr; }
+
   .faq { padding: 80px 0; }
+
   .newsletter { padding: 80px 0; }
-  .newsletter-inner { padding: 44px 28px; }
+  .newsletter-inner { padding: 40px 24px; }
+
   .contact { padding: 80px 0; }
   .contact-form-card { padding: 28px 20px; }
   .cf-row { grid-template-columns: 1fr; }
-  .about-features { grid-template-columns: 1fr; }
-  .hero-stats { gap: 18px; }
-  .hs strong { font-size: 1.2rem; }
+
+  .section-header-centered { margin-bottom: 44px; }
+
+  /* ---- FOOTER MOBILE ---- */
   footer { padding: 60px 0 30px; }
   .footer-grid { grid-template-columns: 1fr; gap: 36px; }
   .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
   .footer-bottom-links { flex-wrap: wrap; justify-content: center; }
-  .section-header-centered { margin-bottom: 44px; }
 }
 
+/* ==========================================
+   RESPONSIVE — SMALL MOBILE 480px
+========================================== */
 @media (max-width: 480px) {
   .impact-grid { grid-template-columns: 1fr; }
   .hero-actions { flex-direction: column; align-items: center; }
-  .hero-stats { flex-direction: column; gap: 16px; }
-  .hs-div { width: 40px; height: 1px; }
+  .hero-stats { flex-direction: row; flex-wrap: wrap; gap: 14px; justify-content: center; }
+  .hs-div { display: none; }
   .donation-amounts { gap: 8px; }
   .da-btn { padding: 8px 16px; font-size: 0.82rem; }
+  .donation-progress-card { padding: 24px 16px; }
+  .dpc-amount { font-size: 1.5rem; }
+  .hero-badge { font-size: 0.65rem; padding: 6px 12px; }
 }
