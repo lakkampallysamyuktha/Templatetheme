@@ -473,7 +473,7 @@ return;
 
      newsletterForm.reset();
 
-window.location.href = "index.html";
+window.location.href = "404.html";
 
     }
   );
@@ -518,7 +518,7 @@ if (
 ) {
 
   copyright.innerHTML =
-  `© ${new Date().getFullYear()} Hope Foundation. All Rights Reserved.`;
+  `© ${new Date().getFullYear()} Stackly Foundation. All Rights Reserved.`;
 
 }
 
