@@ -189,6 +189,7 @@ header{
 .logo{
   font-size:2.5rem;
   font-weight:700;
+  
 }
 .logo img{
     height:80px;
@@ -325,12 +326,12 @@ header{
 ========================== */
 
 section{
-  padding:100px 8%;
+  padding:90px 8%;
 }
 
 .section-title{
   text-align:center;
-  margin-bottom:80px;
+  margin-bottom:40px;
 }
 
 .section-title span{
@@ -534,9 +535,9 @@ section{
 
 .donation-box{
   width:100%;
-  max-width:900px;
+  max-width:1300px;
   background:var(--card);
-  padding:60px;
+   padding:90px 80px;
   border-radius:30px;
   text-align:center;
   box-shadow:var(--shadow);
@@ -1451,16 +1452,8 @@ box-shadow:0 0 0 white;
   .section-title{
     margin-bottom:50px;
   }
-
-  .about,
-  .programs,
-  .impact,
-  .newsletter,
-  .contact{
-    padding:80px 20px;
-  }
-
 }
+
 .ngo-icons{
   position:fixed;
   inset:0;
@@ -1507,4 +1500,44 @@ box-shadow:0 0 0 white;
     visibility:visible !important;
   }
 
+}
+@media (max-width:768px){
+
+  .contact{
+    padding:60px 20px;
+  }
+
+  .contact-grid{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+  }
+
+  .contact-info{
+    width:100%;
+  }
+
+  .contact-card{
+    width:100%;
+    padding:20px;
+  }
+
+  .contact-card p{
+    font-size:14px;
+    word-break:break-word;
+  }
+
+  .contact-form{
+    width:100%;
+    padding:20px;
+  }
+
+  .contact-form input,
+  .contact-form textarea{
+    width:100%;
+  }
+
+  .contact-form button{
+    width:100%;
+  }
 }
