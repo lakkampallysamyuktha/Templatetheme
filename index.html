@@ -3,772 +3,589 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Stackly Foundation | NGO Website</title>
-
+<title>Stackly Foundation | Empowering Communities</title>
 <link rel="stylesheet" href="style.css">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-<div class="ngo-icons">
-  <i class="fas fa-seedling"></i>
-  <i class="fas fa-seedling"></i>
-  <i class="fas fa-seedling"></i>
-  <i class="fas fa-seedling"></i>
-  <i class="fas fa-seedling"></i>
-</div>
-<!-- LOADER -->
+
+<!-- FLOATING PARTICLES -->
+<div class="particles" id="particles"></div>
 
 <!-- LOADER -->
-
 <div id="loader">
-
   <div class="loader-content">
-
-    <img
-      src="logo-removebg-preview.webp"
-      alt="Stackly Logo"
-    >
-
-    <h2>Stackly</h2>
-
-    <p>Loading...</p>
-
-    <div class="loader-line">
-      <span></span>
+    <div class="loader-logo">
+      <img src="logo-removebg-preview.webp" alt="Stackly Foundation">
     </div>
-
+    <div class="loader-wordmark">Stackly</div>
+    <div class="loader-tagline">Foundation</div>
+    <div class="loader-bar"><span></span></div>
   </div>
-
 </div>
 
 <!-- BACK TO TOP -->
-
-<button id="topBtn">
-<i class="fas fa-arrow-up"></i>
-</button>
+<button id="topBtn" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
 
 <!-- NAVBAR -->
-
-<header>
-
-<nav class="navbar">
-
-<div class="logo">
-  <a href="index.html">
-    <img src="logo-removebg-preview.webp" alt="Hope Foundation Logo">
-  </a>
-</div>
-
-<ul class="nav-links">
-
-<li><a href="index.html">Home</a></li>
-<li><a href="404.html">About</a></li>
-<li><a href="404.html">Programs</a></li>
-<li><a href="404.html">Impact</a></li>
-<li><a href="404.html">Team</a></li>
-<li><a href="404.html">Contact</a></li>
-
-</ul>
-
-<div class="nav-actions">
-
-  <a href="404.html" class="login-btn">
-    Login
-  </a>
-
-</div>
-
-<div class="menu-btn">
-<i class="fas fa-bars"></i>
-</div>
-
-</nav>
-
+<header id="header">
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="logo-removebg-preview.webp" alt="Stackly Foundation Logo" class="nav-logo-img">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li class="nav-cta-li"><a href="404.html" class="nav-donate-btn">Donate Now</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="404.html" class="nav-donate-desktop">Donate Now</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
 </header>
 
 <!-- HERO -->
 <section id="home" class="hero">
-
-<div class="hero-slider">
-
-  <div class="hero-slide active">
-    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1920&q=80" alt="Education">
+  <div class="hero-slider">
+    <div class="hero-slide active"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1920&q=80" alt="Education"></div>
+    <div class="hero-slide"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&q=80" alt="Volunteers"></div>
+    <div class="hero-slide"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1920&q=80" alt="Community"></div>
+    <div class="hero-slide"><img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1920&q=80" alt="Healthcare"></div>
+    <div class="hero-slide"><img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1920&q=80" alt="Women Empowerment"></div>
   </div>
-
-  <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&q=80" alt="Volunteers">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="badge-dot"></span> Empowering India Since 2018</div>
+    <h1 class="hero-title">
+      <span class="hero-line">Creating Success,</span>
+      <span class="hero-line accent">Changing Lives</span>
+    </h1>
+    <p class="hero-sub">Empowering communities through education, healthcare, women empowerment and sustainable development initiatives across India.</p>
+    <div class="hero-actions">
+      <a href="404.html" class="btn-primary">
+        <span>Donate Now</span>
+        <i class="fas fa-arrow-right"></i>
+      </a>
+      <a href="404.html" class="btn-ghost">
+        <i class="fas fa-play-circle"></i>
+        <span>Our Story</span>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><strong>50K+</strong><span>Lives Impacted</span></div>
+      <div class="hs-div"></div>
+      <div class="hs"><strong>1,200+</strong><span>Volunteers</span></div>
+      <div class="hs-div"></div>
+      <div class="hs"><strong>150+</strong><span>Communities</span></div>
+    </div>
   </div>
-
-  <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1920&q=80" alt="Community">
+  <div class="hero-scroll-hint">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+    <span>Scroll to explore</span>
   </div>
-
-  <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1920&q=80" alt="Healthcare">
-  </div>
-
-  <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1920&q=80" alt="Women Empowerment">
-  </div>
-
-  <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1920&q=80" alt="Environment">
-  </div>
-
-</div>
-<div class="hero-content">
-
-  <span>Creating Success Since 2015</span>
-
-  <h1>
-    Creating Success,<br>
-    Changing Lives
-  </h1>
-
-<p>
-Empowering communities through education,
-healthcare, women empowerment and sustainable
-development initiatives across India.
-</p>
-
-  <div class="hero-buttons">
-    <a href="404.html" class="btn">Donate Now</a>
-    <a href="404.html" class="btn-outline">Become Volunteer</a>
-  </div>
-
-</div>
-
-<div class="hero-scroll">
-Scroll Down
-</div>
-
+  <div class="hero-slider-dots" id="sliderDots"></div>
 </section>
 
 <!-- ABOUT -->
-
 <section id="about" class="about reveal">
-
-<div class="section-title">
-
-<span>Who We Are</span>
-
-<h2>About Our Organization</h2>
-
-</div>
-
-<div class="about-grid">
-
-<div class="about-image">
-
-<img
-src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200"
-alt="ngo">
-
-</div>
-
-<div class="about-content">
-
-<h3>
-Building Better Futures
-Through Compassion
-</h3>
-
-<p>
-Stackly Foundation works with
-underprivileged communities
-to provide education,
-healthcare and economic
-opportunities.
-</p>
-
-<p>
-We believe every person deserves
-access to resources that help
-them live a healthy, safe and
-successful life.
-</p>
-
-<div class="about-features">
-
-<div>
-<i class="fas fa-check-circle"></i>
-Education Support
-</div>
-
-<div>
-<i class="fas fa-check-circle"></i>
-Healthcare Programs
-</div>
-
-<div>
-<i class="fas fa-check-circle"></i>
-Women Empowerment
-</div>
-
-<div>
-<i class="fas fa-check-circle"></i>
-Community Development
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-media">
+        <div class="about-img-main">
+          <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800" alt="NGO work">
+        </div>
+        <div class="about-img-float">
+          <img src="https://images.unsplash.com/photo-1593113598332-cd59a93f7d35?w=400" alt="Impact">
+        </div>
+        <div class="about-badge-float">
+          <div class="abf-number">8+</div>
+          <div class="abf-text">Years of<br>Impact</div>
+        </div>
+      </div>
+      <div class="about-content">
+        <div class="section-label">Who We Are</div>
+        <h2 class="section-heading">Building Better Futures Through <em>Compassion</em></h2>
+        <p class="about-lead">Stackly Foundation works with underprivileged communities to provide education, healthcare and economic opportunities across India.</p>
+        <p class="about-body">We believe every person deserves access to resources that help them live a healthy, safe and successful life. Our holistic approach addresses root causes of poverty and inequality.</p>
+        <div class="about-features">
+          <div class="af-item"><i class="fas fa-graduation-cap"></i><span>Education Support</span></div>
+          <div class="af-item"><i class="fas fa-heartbeat"></i><span>Healthcare Programs</span></div>
+          <div class="af-item"><i class="fas fa-female"></i><span>Women Empowerment</span></div>
+          <div class="af-item"><i class="fas fa-seedling"></i><span>Community Development</span></div>
+        </div>
+        <a href="404.html" class="btn-primary">Explore Programs <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- IMPACT -->
-
 <section id="impact" class="impact reveal">
-
-<div class="section-title">
-
-<span>Our Impact</span>
-
-<h2>Changing Lives Everyday</h2>
-
-</div>
-
-<div class="impact-grid">
-
-<div class="impact-card">
-
-<h3 class="counter"
-data-target="50000">
-0
-</h3>
-
-<p>Lives Impacted</p>
-
-</div>
-
-<div class="impact-card">
-
-<h3 class="counter"
-data-target="1200">
-0
-</h3>
-
-<p>Volunteers</p>
-
-</div>
-
-<div class="impact-card">
-
-<h3 class="counter"
-data-target="300">
-0
-</h3>
-
-<p>Projects Completed</p>
-
-</div>
-
-<div class="impact-card">
-
-<h3 class="counter"
-data-target="150">
-0
-</h3>
-
-<p>Communities Served</p>
-
-</div>
-
-</div>
-
+  <div class="container">
+    <div class="section-header-centered">
+      <div class="section-label">Our Impact</div>
+      <h2 class="section-heading">Changing Lives <em>Every Day</em></h2>
+      <p class="section-sub">Numbers that tell the story of thousands of lives transformed through dedicated action and compassion.</p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="ic-icon"><i class="fas fa-users"></i></div>
+        <h3 class="counter" data-target="50000">0</h3>
+        <p>Lives Impacted</p>
+        <div class="ic-bar"><span style="width:92%"></span></div>
+      </div>
+      <div class="impact-card">
+        <div class="ic-icon"><i class="fas fa-hands-helping"></i></div>
+        <h3 class="counter" data-target="1200">0</h3>
+        <p>Volunteers</p>
+        <div class="ic-bar"><span style="width:78%"></span></div>
+      </div>
+      <div class="impact-card">
+        <div class="ic-icon"><i class="fas fa-check-double"></i></div>
+        <h3 class="counter" data-target="300">0</h3>
+        <p>Projects Completed</p>
+        <div class="ic-bar"><span style="width:85%"></span></div>
+      </div>
+      <div class="impact-card">
+        <div class="ic-icon"><i class="fas fa-map-marked-alt"></i></div>
+        <h3 class="counter" data-target="150">0</h3>
+        <p>Communities Served</p>
+        <div class="ic-bar"><span style="width:70%"></span></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- PROGRAMS -->
-
 <section id="programs" class="programs reveal">
-
-  <div class="section-title">
-    <span>Programs</span>
-    <h2>Our Focus Areas</h2>
-  </div>
-
-  <div class="programs-list">
-
-    <div class="program-item">
-      <i class="fas fa-book-open"></i>
-      <div>
+  <div class="container">
+    <div class="section-header-centered">
+      <div class="section-label">Programs</div>
+      <h2 class="section-heading">Our Focus <em>Areas</em></h2>
+      <p class="section-sub">Six pillars of change that address the most critical needs of underserved communities.</p>
+    </div>
+    <div class="programs-grid">
+      <div class="program-card prog-1">
+        <div class="pc-icon"><i class="fas fa-book-open"></i></div>
         <h3>Education</h3>
-        <p>Providing quality education, digital learning and school development support for children.</p>
+        <p>Providing quality education, digital learning and school development support for children in rural and urban slums.</p>
+        <a href="404.html" class="pc-link">Learn more <i class="fas fa-arrow-right"></i></a>
       </div>
-    </div>
-
-    <div class="program-item">
-      <i class="fas fa-heartbeat"></i>
-      <div>
+      <div class="program-card prog-2">
+        <div class="pc-icon"><i class="fas fa-heartbeat"></i></div>
         <h3>Healthcare</h3>
-        <p>Delivering healthcare services and wellness programs to underserved communities.</p>
+        <p>Delivering healthcare services, medical camps and wellness programs to underserved communities across India.</p>
+        <a href="404.html" class="pc-link">Learn more <i class="fas fa-arrow-right"></i></a>
       </div>
-    </div>
-
-    <div class="program-item">
-      <i class="fas fa-female"></i>
-      <div>
+      <div class="program-card prog-3">
+        <div class="pc-icon"><i class="fas fa-female"></i></div>
         <h3>Women Empowerment</h3>
-        <p>Empowering women through skill development, leadership and entrepreneurship programs.</p>
+        <p>Empowering women through skill development, leadership training and entrepreneurship programs.</p>
+        <a href="404.html" class="pc-link">Learn more <i class="fas fa-arrow-right"></i></a>
       </div>
-    </div>
-
-    <div class="program-item">
-      <i class="fas fa-briefcase"></i>
-      <div>
+      <div class="program-card prog-4">
+        <div class="pc-icon"><i class="fas fa-briefcase"></i></div>
         <h3>Livelihood</h3>
-        <p>Creating employment opportunities and sustainable income sources for families.</p>
+        <p>Creating sustainable employment opportunities and income sources for underprivileged families.</p>
+        <a href="404.html" class="pc-link">Learn more <i class="fas fa-arrow-right"></i></a>
       </div>
-    </div>
-
-    <div class="program-item">
-      <i class="fas fa-seedling"></i>
-      <div>
+      <div class="program-card prog-5">
+        <div class="pc-icon"><i class="fas fa-seedling"></i></div>
         <h3>Environment</h3>
-        <p>Promoting sustainability through plantation drives and environmental awareness.</p>
+        <p>Promoting sustainability through plantation drives, waste management and environmental awareness campaigns.</p>
+        <a href="404.html" class="pc-link">Learn more <i class="fas fa-arrow-right"></i></a>
       </div>
-    </div>
-
-    <div class="program-item">
-      <i class="fas fa-hands-helping"></i>
-      <div>
+      <div class="program-card prog-6">
+        <div class="pc-icon"><i class="fas fa-hands-helping"></i></div>
         <h3>Disaster Response</h3>
-        <p>Providing emergency relief and rehabilitation support during crises.</p>
+        <p>Providing emergency relief, rehabilitation and rebuilding support during natural disasters and crises.</p>
+        <a href="404.html" class="pc-link">Learn more <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
-
   </div>
-
 </section>
 
 <!-- DONATION -->
-
-<section id="donate"
-class="donation reveal">
-
-<div class="donation-box">
-
-<span>Current Campaign</span>
-
-<h2>
-Help Build Schools
-For Rural Children
-</h2>
-
-<p>
-Support our mission to create
-safe learning environments.
-</p>
-
-<div class="progress-container">
-
-<div class="progress-bar">
-
-<span id="progressFill"></span>
-
-</div>
-
-</div>
-
-<div class="donation-stats">
-
-<div>
-
-<h4>$75,000</h4>
-
-<p>Raised</p>
-
-</div>
-
-<div>
-
-<h4>$100,000</h4>
-
-<p>Goal</p>
-
-</div>
-
-</div>
-
-<a href="404.html" class="btn">
-Donate Today
-</a>
-
-</div>
-
+<section id="donate" class="donation reveal">
+  <div class="container">
+    <div class="donation-inner">
+      <div class="donation-left">
+        <div class="section-label light">Current Campaign</div>
+        <h2>Help Build Schools For Rural Children</h2>
+        <p>Your contribution creates safe, vibrant learning environments where every child can dream bigger and reach further.</p>
+        <div class="donation-amounts">
+          <button class="da-btn active" data-amt="500">₹500</button>
+          <button class="da-btn" data-amt="1000">₹1,000</button>
+          <button class="da-btn" data-amt="2500">₹2,500</button>
+          <button class="da-btn" data-amt="5000">₹5,000</button>
+        </div>
+        <div class="donation-custom">
+          <input type="number" placeholder="Enter custom amount" id="customAmt">
+        </div>
+        <a href="404.html" class="btn-primary btn-white">
+          <i class="fas fa-heart"></i> Donate Now
+        </a>
+        <p class="donation-note"><i class="fas fa-shield-alt"></i> 100% Secure · Tax Exempt under 80G</p>
+      </div>
+      <div class="donation-right">
+        <div class="donation-progress-card">
+          <div class="dpc-header">
+            <div>
+              <div class="dpc-label">Amount Raised</div>
+              <div class="dpc-amount">₹75,00,000</div>
+            </div>
+            <div class="dpc-pct">75%</div>
+          </div>
+          <div class="dpc-bar">
+            <div class="dpc-fill" id="progressFill"></div>
+          </div>
+          <div class="dpc-goal">Goal: ₹1,00,00,000</div>
+          <div class="dpc-donors">
+            <div class="dpc-donor-faces">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="">
+            </div>
+            <span>2,340+ donors have contributed</span>
+          </div>
+          <div class="dpc-stats">
+            <div><i class="fas fa-calendar-alt"></i> 18 days left</div>
+            <div><i class="fas fa-users"></i> 2,340 donors</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- TEAM -->
+<section id="team" class="team reveal">
+  <div class="container">
+    <div class="section-header-centered">
+      <div class="section-label">Leadership</div>
+      <h2 class="section-heading">Meet Our <em>Team</em></h2>
+      <p class="section-sub">Passionate leaders dedicated to driving meaningful change in communities across India.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="tc-img">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600" alt="Sarah Johnson">
+          <div class="tc-overlay">
+            <div class="tc-social">
+              <a href="404.html"><i class="fab fa-linkedin-in"></i></a>
+              <a href="404.html"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="tc-info">
+          <h3>Sarah Johnson</h3>
+          <p>Founder & CEO</p>
+          <div class="tc-tag">8 years of service</div>
+        </div>
+      </div>
+      <div class="team-card tc-featured">
+        <div class="tc-img">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600" alt="Michael Lee">
+          <div class="tc-overlay">
+            <div class="tc-social">
+              <a href="404.html"><i class="fab fa-linkedin-in"></i></a>
+              <a href="404.html"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="tc-info">
+          <h3>Michael Lee</h3>
+          <p>Executive Director</p>
+          <div class="tc-tag">6 years of service</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="tc-img">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600" alt="Emma Davis">
+          <div class="tc-overlay">
+            <div class="tc-social">
+              <a href="404.html"><i class="fab fa-linkedin-in"></i></a>
+              <a href="404.html"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="tc-info">
+          <h3>Emma Davis</h3>
+          <p>Program Head</p>
+          <div class="tc-tag">5 years of service</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<section id="team"
-class="team reveal">
-
-<div class="section-title">
-
-<span>Leadership</span>
-
-<h2>Meet Our Team</h2>
-
-</div>
-
-<div class="team-grid">
-
-<div class="team-card">
-
-<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500">
-
-<h3>Sarah Johnson</h3>
-
-<p>Founder</p>
-
-</div>
-
-<div class="team-card">
-
-<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500">
-
-<h3>Michael Lee</h3>
-
-<p>Director</p>
-
-</div>
-
-<div class="team-card">
-
-<img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500">
-
-<h3>Emma Davis</h3>
-
-<p>Program Head</p>
-
-</div>
-
-</div>
-
+<!-- GALLERY -->
+<section class="gallery reveal">
+  <div class="container">
+    <div class="section-header-centered">
+      <div class="section-label">Gallery</div>
+      <h2 class="section-heading">Moments of <em>Impact</em></h2>
+      <p class="section-sub">A glimpse into the lives we touch and the communities we serve every single day.</p>
+    </div>
+  </div>
+  <div class="gallery-track-wrap">
+    <div class="gallery-track">
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600" alt="Education"><div class="gi-caption">Education</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600" alt="Community"><div class="gi-caption">Community</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600" alt="Volunteers"><div class="gi-caption">Volunteers</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584515933487-779824d29309?w=600" alt="Healthcare"><div class="gi-caption">Healthcare</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1593113598332-cd59a93f7d35?w=600" alt="Women"><div class="gi-caption">Empowerment</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600" alt="Support"><div class="gi-caption">Support</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600" alt="Children"><div class="gi-caption">Children</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600" alt="Environment"><div class="gi-caption">Environment</div></div>
+      <!-- Duplicate -->
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600" alt="Education"><div class="gi-caption">Education</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600" alt="Community"><div class="gi-caption">Community</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600" alt="Volunteers"><div class="gi-caption">Volunteers</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584515933487-779824d29309?w=600" alt="Healthcare"><div class="gi-caption">Healthcare</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1593113598332-cd59a93f7d35?w=600" alt="Women"><div class="gi-caption">Empowerment</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600" alt="Support"><div class="gi-caption">Support</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600" alt="Children"><div class="gi-caption">Children</div></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600" alt="Environment"><div class="gi-caption">Environment</div></div>
+    </div>
+  </div>
 </section>
 
 <!-- TESTIMONIALS -->
-
-<section class="photo-gallery reveal">
-
-  <div class="section-title">
-    <span>Gallery</span>
-    <h2>Moments Of Impact</h2>
+<section class="testimonials reveal">
+  <div class="container">
+    <div class="section-header-centered">
+      <div class="section-label">Stories</div>
+      <h2 class="section-heading">Voices of <em>Change</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-quote"><i class="fas fa-quote-left"></i></div>
+        <p>"Stackly Foundation's education program changed my daughter's life completely. She now dreams of becoming a doctor."</p>
+        <div class="testi-author">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100" alt="Priya Sharma">
+          <div><strong>Priya Sharma</strong><span>Mother, Hyderabad</span></div>
+        </div>
+      </div>
+      <div class="testi-card testi-featured">
+        <div class="testi-quote"><i class="fas fa-quote-left"></i></div>
+        <p>"Through their women empowerment program, I started my own tailoring business. Today I support my entire family independently."</p>
+        <div class="testi-author">
+          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100" alt="Meena Devi">
+          <div><strong>Meena Devi</strong><span>Entrepreneur, Warangal</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote"><i class="fas fa-quote-left"></i></div>
+        <p>"Volunteering with Stackly has been the most fulfilling experience of my life. The impact you see firsthand is immeasurable."</p>
+        <div class="testi-author">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="Rahul Singh">
+          <div><strong>Rahul Singh</strong><span>Volunteer, Bengaluru</span></div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="gallery-slider">
-
-   <div class="gallery-track">
-
-<img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200" alt="Indian school children studying">
-
-<img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1200" alt="NGO volunteers helping community">
-
-<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200" alt="Community development program">
-
-<img src="https://images.unsplash.com/photo-1584515933487-779824d29309?w=1200" alt="Rural healthcare camp">
-
-<img src="https://images.unsplash.com/photo-1593113598332-cd59a93f7d35?w=1200" alt="Women empowerment initiative">
-
-<img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1200" alt="NGO volunteer support activities">
-
-<img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200" alt="Children education support">
-
-<img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1200" alt="Environmental sustainability project">
-
-</div>
-
-  </div>
-
 </section>
 
 <!-- FAQ -->
-
 <section class="faq reveal">
-
-<div class="section-title">
-
-<span>FAQ</span>
-
-<h2>Frequently Asked Questions</h2>
-
-</div>
-
-<div class="faq-container">
-
-<div class="faq-item">
-
-<button class="faq-question">
-How can I donate?
-</button>
-
-<div class="faq-answer">
-<p>
-You can donate online
-through our secure portal.
-</p>
-</div>
-
-</div>
-
-<div class="faq-item">
-
-<button class="faq-question">
-How can I volunteer?
-</button>
-
-<div class="faq-answer">
-<p>
-Register through our volunteer form.
-</p>
-</div>
-
-</div>
-<div class="faq-item">
-
-<button class="faq-question">
-What programs does Stackly Foundation offer?
-</button>
-
-<div class="faq-answer">
-<p>
-We focus on education, healthcare, women empowerment,
-environmental sustainability, and community development programs.
-</p>
-</div>
-
-</div>
-
-<div class="faq-item">
-
-<button class="faq-question">
-Where does my donation go?
-</button>
-
-<div class="faq-answer">
-<p>
-Your donations directly support educational initiatives,
-medical camps, community welfare projects, and social impact programs.
-</p>
-</div>
-
-</div>
-
-<div class="faq-item">
-
-<button class="faq-question">
-How can I stay updated on your activities?
-</button>
-
-<div class="faq-answer">
-<p>
-Subscribe to our newsletter and follow our social media channels
-to receive updates, success stories, volunteer opportunities,
-and upcoming events.
-</p>
-</div>
-</div>
-
+  <div class="container">
+    <div class="faq-layout">
+      <div class="faq-left">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-heading">Frequently Asked <em>Questions</em></h2>
+        <p>Have more questions? We're always happy to help you understand how we work and how you can make a difference.</p>
+        <a href="404.html" class="btn-primary">Contact Us <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="faq-right">
+        <div class="faq-item">
+          <button class="faq-question">How can I donate?<span class="fq-icon"><i class="fas fa-plus"></i></span></button>
+          <div class="faq-answer"><p>You can donate online through our secure portal using any major credit/debit card, UPI, or bank transfer. All donations are tax-exempt under Section 80G.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">How can I volunteer?<span class="fq-icon"><i class="fas fa-plus"></i></span></button>
+          <div class="faq-answer"><p>Register through our volunteer form and our team will reach out with available opportunities matching your skills and schedule. We have opportunities for weekends and full-time commitments.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">What programs does Stackly Foundation offer?<span class="fq-icon"><i class="fas fa-plus"></i></span></button>
+          <div class="faq-answer"><p>We focus on education, healthcare, women empowerment, environmental sustainability, livelihood development and disaster response programs.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Where does my donation go?<span class="fq-icon"><i class="fas fa-plus"></i></span></button>
+          <div class="faq-answer"><p>Your donations directly support educational initiatives, medical camps, community welfare projects, and social impact programs. We maintain full transparency with annual reports.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">How can I stay updated?<span class="fq-icon"><i class="fas fa-plus"></i></span></button>
+          <div class="faq-answer"><p>Subscribe to our newsletter and follow our social media channels to receive updates, success stories, volunteer opportunities, and upcoming events.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
 <!-- NEWSLETTER -->
 <section class="newsletter reveal">
-
-  <span class="newsletter-tag">
-    NEWSLETTER
-  </span>
-
-  <h2>
-    Subscribe To Our Newsletter
-  </h2>
-
-  <p>
-    Get updates on our programs, impact stories,
-    events and community initiatives.
-  </p>
-
-  <form id="newsletterForm">
-
-    <input
-    type="text"
-    placeholder="Your Name">
-
-    <input
-    type="email"
-    placeholder="Email Address">
-
-    <button type="submit">
-      Subscribe
-    </button>
-
-  </form>
-
-  <div id="newsletterMessage"></div>
-
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="nl-left">
+        <div class="nl-icon"><i class="fas fa-envelope-open-text"></i></div>
+        <div class="section-label light">Newsletter</div>
+        <h2>Stay Connected to <em>Our Mission</em></h2>
+        <p>Get updates on programs, impact stories, events and volunteer opportunities delivered to your inbox.</p>
+      </div>
+      <div class="nl-right">
+        <form id="newsletterForm" class="nl-form">
+          <div class="nl-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Your full name" required>
+          </div>
+          <div class="nl-field">
+            <i class="fas fa-envelope"></i>
+            <input type="email" placeholder="Your email address" required>
+          </div>
+          <button type="submit" class="btn-primary">
+            Subscribe Now <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+        <p class="nl-note"><i class="fas fa-lock"></i> No spam. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- CONTACT -->
-
-<section class="contact" id="contact">
-
-  <div class="section-title">
-    <span>Get In Touch</span>
-    <h2>Let's Create Impact Together</h2>
-  </div>
-
-  <div class="contact-grid">
-
-    <div class="contact-info">
-
-      <div class="contact-card">
-        <i class="fas fa-map-marker-alt"></i>
-        <div>
-          <h4>Our Location</h4>
-          <p>Hyderabad, India</p>
-        </div>
-      </div>
-
-      <div class="contact-card">
-        <i class="fas fa-envelope"></i>
-        <div>
-          <h4>Email Us</h4>
-          <p>support@stacklyfoundation.org</p>
-        </div>
-      </div>
-
-      <div class="contact-card">
-        <i class="fas fa-phone"></i>
-        <div>
-          <h4>Call Us</h4>
-          <p>+91 98765 43210</p>
-        </div>
-      </div>
-
+<section class="contact reveal" id="contact">
+  <div class="container">
+    <div class="section-header-centered">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-heading">Let's Create <em>Impact Together</em></h2>
     </div>
-
-    <form class="contact-form">
-
-      <input type="text" placeholder="Your Name" required>
-
-      <input type="email" placeholder="Email Address" required>
-
-      <input type="text" placeholder="Subject">
-
-      <textarea rows="6" placeholder="Your Message"></textarea>
-
-      <button type="submit">
-        Send Message
-      </button>
-
-    </form>
-
+    <div class="contact-grid">
+      <div class="contact-left">
+        <p class="contact-intro">Have a question, partnership idea, or want to volunteer? We'd love to hear from you. Reach out and we'll respond within 24 hours.</p>
+        <div class="contact-info-list">
+          <div class="ci-item">
+            <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="ci-text"><h4>Our Location</h4><p>Hyderabad, Telangana, India</p></div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon"><i class="fas fa-envelope"></i></div>
+            <div class="ci-text"><h4>Email Us</h4><p>support@stacklyfoundation.org</p></div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon"><i class="fas fa-phone"></i></div>
+            <div class="ci-text"><h4>Call Us</h4><p>+91 98765 43210</p></div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon"><i class="fas fa-clock"></i></div>
+            <div class="ci-text"><h4>Working Hours</h4><p>Mon – Sat, 9:00 AM – 6:00 PM</p></div>
+          </div>
+        </div>
+        <div class="contact-socials">
+          <span>Follow Us</span>
+          <div class="cs-links">
+            <a href="404.html" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="404.html" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="404.html" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="404.html" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-right">
+        <div class="contact-form-card">
+          <h3>Send Us a Message</h3>
+          <p>We'll get back to you as soon as possible.</p>
+          <form class="cform" id="contactForm">
+            <div class="cf-row">
+              <div class="cf-group">
+                <label>Your Name</label>
+                <input type="text" placeholder="John Doe" required>
+              </div>
+              <div class="cf-group">
+                <label>Email Address</label>
+                <input type="email" placeholder="john@example.com" required>
+              </div>
+            </div>
+            <div class="cf-group">
+              <label>Subject</label>
+              <input type="text" placeholder="How can we help?">
+            </div>
+            <div class="cf-group">
+              <label>Your Message</label>
+              <textarea rows="5" placeholder="Tell us more about your inquiry..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary btn-full">
+              Send Message <i class="fas fa-paper-plane"></i>
+            </button>
+            <div id="contactMsg"></div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-
 </section>
+
 <!-- FOOTER -->
 <footer>
-
-  <div class="footer-top-line"></div>
-
-  <div class="footer-grid">
-
-    <div class="footer-brand">
-
-      <img
-      src="logo-removebg-preview.webp"
-      alt="Stackly Logo">
-
-      <p>
-        Empowering communities through education,
-        healthcare, women empowerment and sustainable
-        development initiatives. Together we create
-        opportunities and build brighter futures.
-      </p>
-
-      <div class="social-icons">
-
-        <a href="#">
-          <i class="fab fa-facebook-f"></i>
+  <div class="footer-glow"></div>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo">
+          <img src="logo-removebg-preview.webp" alt="Stackly Foundation Logo" class="footer-logo-img">
         </a>
-
-        <a href="#">
-          <i class="fab fa-instagram"></i>
-        </a>
-
-        <a href="#">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-
-        <a href="#">
-          <i class="fab fa-youtube"></i>
-        </a>
-
+        <p>Empowering communities through education, healthcare, women empowerment and sustainable development. Together we build brighter futures.</p>
+        <div class="footer-social">
+          <a href="404.html" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="404.html" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="404.html" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="404.html" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
       </div>
-
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#programs">Programs</a>
+        <a href="#impact">Impact</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Our Programs</h4>
+        <a href="404.html">Education</a>
+        <a href="404.html">Healthcare</a>
+        <a href="404.html">Women Empowerment</a>
+        <a href="404.html">Environment</a>
+        <a href="404.html">Livelihood</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <div class="fc-info"><i class="fas fa-map-marker-alt"></i><span>Hyderabad, Telangana, India</span></div>
+        <div class="fc-info"><i class="fas fa-envelope"></i><span>support@stacklyfoundation.org</span></div>
+        <div class="fc-info"><i class="fas fa-phone"></i><span>+91 98765 43210</span></div>
+        <a href="404.html" class="footer-donate-btn">Donate Now <i class="fas fa-heart"></i></a>
+      </div>
     </div>
-
-    <div>
-
-      <h4>Quick Links</h4>
-
-      <a href="#">Home</a>
-      <a href="#">About Us</a>
-      <a href="#">Programs</a>
-      <a href="#">Impact</a>
-      <a href="#">Contact</a>
-
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Stackly Foundation. All Rights Reserved. Made with <i class="fas fa-heart" style="color:#a3e635"></i> for a better India.</p>
+      <div class="footer-bottom-links">
+        <a href="404.html">Privacy Policy</a>
+        <a href="404.html">Terms of Use</a>
+        <a href="404.html">80G Certificate</a>
+      </div>
     </div>
-
-    <div>
-
-      <h4>Our Programs</h4>
-
-      <a href="#">Education</a>
-      <a href="#">Healthcare</a>
-      <a href="#">Women Empowerment</a>
-      <a href="#">Environment</a>
-      <a href="#">Livelihood</a>
-
-    </div>
-
-    <div>
-
-      <h4>Contact Info</h4>
-
-      <p>
-        <i class="fas fa-map-marker-alt"></i>
-        Hyderabad, India
-      </p>
-
-      <p>
-        <i class="fas fa-envelope"></i>
-        info@stackly.org
-      </p>
-
-      <p>
-        <i class="fas fa-phone"></i>
-        +91 98765 43210
-      </p>
-
-    </div>
-
   </div>
-
-  <div class="copyright">
-    © 2026 Stackly Foundation. All Rights Reserved.
-  </div>
-
 </footer>
 
 <script src="script.js"></script>
-
 </body>
 </html>
