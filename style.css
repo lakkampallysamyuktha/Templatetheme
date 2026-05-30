@@ -1326,19 +1326,8 @@ overflow:hidden;
 
 /*5. Fade In Sections On Scroll*/
 .reveal{
-
-opacity:0;
-transform:translateY(80px);
-
-transition:1.2s ease;
-
-}
-
-.reveal.active{
-
-opacity:1;
-transform:translateY(0);
-
+  opacity:1;
+  transform:none;
 }
 
 
