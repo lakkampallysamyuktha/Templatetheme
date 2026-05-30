@@ -346,15 +346,7 @@ section{
   font-weight:700;
   margin-top:12px;
   line-height:1.2;
-
-  background:linear-gradient(
-    135deg,
-    #a3e635
-  );
-
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
+  color:#a3e635;
 }
 
 /* PREMIUM CARD STYLE */
