@@ -36,6 +36,12 @@
       <img src="logo-removebg-preview.webp" alt="Stackly Foundation Logo" class="nav-logo-img">
     </a>
     <ul class="nav-links" id="navLinks">
+      <!-- Close button inside mobile menu -->
+      <li class="nav-close-li">
+        <button class="nav-close-btn" id="navCloseBtn" aria-label="Close menu">
+          <i class="fas fa-times"></i>
+        </button>
+      </li>
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#programs">Programs</a></li>
@@ -347,7 +353,7 @@
       <div class="gallery-item"><img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600" alt="Support"><div class="gi-caption">Support</div></div>
       <div class="gallery-item"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600" alt="Children"><div class="gi-caption">Children</div></div>
       <div class="gallery-item"><img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600" alt="Environment"><div class="gi-caption">Environment</div></div>
-      <!-- Duplicate -->
+      <!-- Duplicate for infinite scroll -->
       <div class="gallery-item"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600" alt="Education"><div class="gi-caption">Education</div></div>
       <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600" alt="Community"><div class="gi-caption">Community</div></div>
       <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600" alt="Volunteers"><div class="gi-caption">Volunteers</div></div>
@@ -507,21 +513,21 @@
           <form class="cform" id="contactForm">
             <div class="cf-row">
               <div class="cf-group">
-                <label>Your Name</label>
+                <label>Your Name *</label>
                 <input type="text" placeholder="John Doe" required>
               </div>
               <div class="cf-group">
-                <label>Email Address</label>
+                <label>Email Address *</label>
                 <input type="email" placeholder="john@example.com" required>
               </div>
             </div>
             <div class="cf-group">
-              <label>Subject</label>
-              <input type="text" placeholder="How can we help?">
+              <label>Subject *</label>
+              <input type="text" placeholder="How can we help?" required>
             </div>
             <div class="cf-group">
-              <label>Your Message</label>
-              <textarea rows="5" placeholder="Tell us more about your inquiry..."></textarea>
+              <label>Your Message *</label>
+              <textarea rows="5" placeholder="Tell us more about your inquiry..." required></textarea>
             </div>
             <button type="submit" class="btn-primary btn-full">
               Send Message <i class="fas fa-paper-plane"></i>
