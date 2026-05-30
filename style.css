@@ -1511,4 +1511,19 @@ box-shadow:0 0 0 white;
     transform:translateY(-120vh) rotate(360deg);
   }
 }
+@media(max-width:768px){
 
+  .reveal{
+    opacity:1 !important;
+    transform:none !important;
+  }
+
+  .section-title,
+  .section-title span,
+  .section-title h2{
+    display:block !important;
+    opacity:1 !important;
+    visibility:visible !important;
+  }
+
+}
