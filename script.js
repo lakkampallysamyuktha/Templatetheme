@@ -1,5 +1,10 @@
 /* ==========================================
    STACKLY FOUNDATION — script.js
+   All fixes applied:
+   - Loader hides properly
+   - Hamburger opens/closes with X animation
+   - Newsletter → redirects to 404.html
+   - Contact form → redirects to 404.html
 ========================================== */
 
 /* ---------- LOADER ---------- */
@@ -31,34 +36,56 @@ window.addEventListener("load", () => {
   }
 })();
 
-/* ---------- NAVBAR ---------- */
-const header  = document.getElementById("header");
-const menuBtn = document.getElementById("menuBtn");
+/* ---------- NAVBAR + HAMBURGER ---------- */
+const header   = document.getElementById("header");
+const menuBtn  = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
+const navCloseBtn = document.getElementById("navCloseBtn");
 
 window.addEventListener("scroll", () => {
   header.classList.toggle("scrolled", window.scrollY > 80);
 });
 
+function openMenu() {
+  navLinks.classList.add("open");
+  menuBtn.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeMenu() {
+  navLinks.classList.remove("open");
+  menuBtn.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
 if (menuBtn) {
   menuBtn.addEventListener("click", () => {
-    const open = navLinks.classList.toggle("open");
-    menuBtn.classList.toggle("open", open);
-    document.body.style.overflow = open ? "hidden" : "";
+    navLinks.classList.contains("open") ? closeMenu() : openMenu();
   });
 }
 
-// Close nav on link click
+// Close button inside menu
+if (navCloseBtn) {
+  navCloseBtn.addEventListener("click", closeMenu);
+}
+
+// Close nav on any nav link click
 document.querySelectorAll(".nav-links a").forEach(link => {
-  link.addEventListener("click", () => {
-    navLinks.classList.remove("open");
-    menuBtn.classList.remove("open");
-    document.body.style.overflow = "";
-  });
+  link.addEventListener("click", closeMenu);
+});
+
+// Close on backdrop tap (click outside menu on overlay)
+document.addEventListener("click", (e) => {
+  if (
+    navLinks.classList.contains("open") &&
+    !navLinks.contains(e.target) &&
+    !menuBtn.contains(e.target)
+  ) {
+    closeMenu();
+  }
 });
 
 /* ---------- ACTIVE NAV ON SCROLL ---------- */
-const sections = document.querySelectorAll("section[id]");
+const sections   = document.querySelectorAll("section[id]");
 const navAnchors = document.querySelectorAll(".nav-links a");
 
 window.addEventListener("scroll", () => {
@@ -73,11 +100,10 @@ window.addEventListener("scroll", () => {
 });
 
 /* ---------- HERO SLIDER ---------- */
-const slides = document.querySelectorAll(".hero-slide");
-const dotsContainer = document.getElementById("sliderDots");
-let currentSlide = 0;
+const slides         = document.querySelectorAll(".hero-slide");
+const dotsContainer  = document.getElementById("sliderDots");
+let   currentSlide   = 0;
 
-// Create dots
 slides.forEach((_, i) => {
   const dot = document.createElement("div");
   dot.className = "slider-dot" + (i === 0 ? " active" : "");
@@ -93,11 +119,13 @@ function goToSlide(idx) {
   document.querySelectorAll(".slider-dot")[currentSlide].classList.add("active");
 }
 
-const sliderInterval = setInterval(() => {
+setInterval(() => {
   goToSlide((currentSlide + 1) % slides.length);
 }, 4500);
 
 /* ---------- SCROLL REVEAL ---------- */
+let counterDone = false;
+
 function revealOnScroll() {
   const items = document.querySelectorAll(".reveal");
   const obs = new IntersectionObserver((entries) => {
@@ -105,12 +133,10 @@ function revealOnScroll() {
       if (entry.isIntersecting) {
         entry.target.classList.add("active");
         obs.unobserve(entry.target);
-        // trigger counters
         if (entry.target.classList.contains("impact") && !counterDone) {
           counterDone = true;
           setTimeout(runCounters, 400);
         }
-        // trigger donation bar
         if (entry.target.classList.contains("donation")) {
           setTimeout(() => {
             const fill = document.getElementById("progressFill");
@@ -126,21 +152,17 @@ document.addEventListener("DOMContentLoaded", revealOnScroll);
 revealOnScroll();
 
 /* ---------- COUNTER ---------- */
-let counterDone = false;
-
 function runCounters() {
   document.querySelectorAll(".counter").forEach(counter => {
-    const target = +counter.dataset.target;
+    const target   = +counter.dataset.target;
     const duration = 1800;
-    const step = Math.ceil(duration / 60);
-    let start = null;
+    let   start    = null;
 
     const tick = (timestamp) => {
       if (!start) start = timestamp;
       const progress = Math.min((timestamp - start) / duration, 1);
-      // easeOutExpo
-      const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      const value = Math.floor(eased * target);
+      const eased    = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const value    = Math.floor(eased * target);
       counter.textContent = value.toLocaleString("en-IN") + (progress === 1 ? "+" : "");
       if (progress < 1) requestAnimationFrame(tick);
     };
@@ -171,24 +193,26 @@ document.getElementById("customAmt")?.addEventListener("input", () => {
   document.querySelectorAll(".da-btn").forEach(b => b.classList.remove("active"));
 });
 
-/* ---------- NEWSLETTER FORM ---------- */
+/* ---------- NEWSLETTER FORM → redirect to 404.html ---------- */
 const nlForm = document.getElementById("newsletterForm");
 if (nlForm) {
   nlForm.addEventListener("submit", e => {
     e.preventDefault();
-    const btn = nlForm.querySelector("button");
+    const name  = nlForm.querySelector('input[type="text"]').value.trim();
+    const email = nlForm.querySelector('input[type="email"]').value.trim();
+    if (!name || !email) return;
+
+    const btn  = nlForm.querySelector("button");
     const orig = btn.innerHTML;
     btn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
     btn.style.background = "#22c55e";
     setTimeout(() => {
-      btn.innerHTML = orig;
-      btn.style.background = "";
-      nlForm.reset();
-    }, 2500);
+      window.location.href = "404.html";
+    }, 900);
   });
 }
 
-/* ---------- CONTACT FORM ---------- */
+/* ---------- CONTACT FORM → redirect to 404.html ---------- */
 const contactForm = document.getElementById("contactForm");
 if (contactForm) {
   contactForm.addEventListener("submit", e => {
@@ -196,23 +220,23 @@ if (contactForm) {
     const name  = contactForm.querySelector('input[type="text"]').value.trim();
     const email = contactForm.querySelector('input[type="email"]').value.trim();
     const msg   = document.getElementById("contactMsg");
+
     if (!name || !email) {
       msg.style.color = "#f87171";
       msg.textContent = "Please fill in all required fields.";
       return;
     }
-    const btn = contactForm.querySelector(".btn-primary");
+
+    const btn  = contactForm.querySelector(".btn-primary");
     const orig = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-    btn.disabled = true;
+    btn.innerHTML  = '<i class="fas fa-check"></i> Message Sent!';
+    btn.disabled   = true;
     msg.style.color = "#a3e635";
-    msg.textContent = "Thank you! We'll get back to you within 24 hours.";
+    msg.textContent = "Thank you! Redirecting...";
+
     setTimeout(() => {
-      btn.innerHTML = orig;
-      btn.disabled = false;
-      msg.textContent = "";
-      contactForm.reset();
-    }, 3500);
+      window.location.href = "404.html";
+    }, 900);
   });
 }
 
