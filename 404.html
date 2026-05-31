@@ -3,70 +3,319 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>404 - Page Not Found</title>
-
+<title>Page Not Found | Stackly Foundation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,700;0,900;1,300;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Poppins,sans-serif;
-}
+  :root {
+    --bg: #04080f;
+    --green: #a3e635;
+    --green-3: #22c55e;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --muted-2: #94a3b8;
+    --card: #0c1525;
+    --border: rgba(163,230,53,0.1);
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
 
-body{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#0f0f0f;
-  color:#fff;
-  text-align:center;
-}
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
 
-.container{
-  max-width:600px;
-  padding:20px;
-}
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    padding: 20px;
+  }
 
-h1{
-  font-size:7rem;
-  margin-bottom:20px;
-}
+  /* Background glow */
+  .bg-glow {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 500px;
+    background: radial-gradient(ellipse, rgba(163,230,53,0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
-p{
-  font-size:1.2rem;
-  color:#bdbdbd;
-  margin-bottom:30px;
-}
+  /* Particles */
+  .particles {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .particle {
+    position: absolute; width: 3px; height: 3px;
+    border-radius: 50%; background: var(--green); opacity: 0;
+    animation: particleFloat linear infinite;
+  }
+  @keyframes particleFloat {
+    0%   { transform: translateY(110vh) scale(0); opacity: 0; }
+    10%  { opacity: 0.4; }
+    90%  { opacity: 0.1; }
+    100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+  }
 
-a{
-  display:inline-block;
-  padding:14px 30px;
-  background:#fff;
-  color:#000;
-  text-decoration:none;
-  border-radius:40px;
-  font-weight:600;
-}
+  /* Main card */
+  .error-card {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 560px;
+    width: 100%;
+    padding: 56px 48px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 32px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    animation: cardIn 0.7s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(40px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Icon */
+  .error-icon {
+    width: 80px; height: 80px;
+    background: rgba(163,230,53,0.08);
+    border: 1.5px solid rgba(163,230,53,0.2);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 32px;
+    font-size: 2rem;
+    color: var(--green);
+    animation: iconBounce 2.5s ease-in-out infinite;
+  }
+  @keyframes iconBounce {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-6px); }
+  }
+
+  /* 404 number */
+  .error-number {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 12vw, 7rem);
+    font-weight: 900;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 12px;
+    letter-spacing: -2px;
+    /* Outlined effect */
+    -webkit-text-stroke: 2px var(--green);
+    text-shadow: 0 0 40px rgba(163,230,53,0.25);
+  }
+
+  .error-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+
+  .error-desc {
+    color: var(--muted-2);
+    font-size: 0.97rem;
+    line-height: 1.75;
+    margin-bottom: 36px;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Buttons */
+  .error-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 28px;
+    background: linear-gradient(135deg, var(--green), var(--green-3));
+    color: #04080f;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.35s cubic-bezier(0.25,1,0.5,1);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-home::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--green-3), var(--green));
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .btn-home:hover::before { opacity: 1; }
+  .btn-home:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(163,230,53,0.35); }
+  .btn-home i, .btn-home span { position: relative; z-index: 1; }
+
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 28px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 50px;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(10px);
+    text-decoration: none;
+    transition: 0.35s;
+    cursor: pointer;
+  }
+  .btn-back:hover {
+    border-color: var(--green);
+    color: var(--green);
+    background: rgba(163,230,53,0.06);
+    transform: translateY(-3px);
+  }
+
+  /* Quick links */
+  .quick-links {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .quick-links p {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .ql-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .ql-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 50px;
+    color: var(--muted-2);
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  .ql-btn:hover {
+    background: rgba(163,230,53,0.07);
+    border-color: rgba(163,230,53,0.2);
+    color: var(--green);
+  }
+  .ql-btn i { font-size: 0.75rem; }
+
+  /* Logo at top */
+  .error-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 32px;
+    text-decoration: none;
+  }
+  .error-logo img {
+    height: 40px;
+    filter: brightness(0) saturate(100%) invert(76%) sepia(55%) saturate(600%) hue-rotate(46deg) brightness(102%) contrast(97%);
+  }
+  .error-logo-text {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .error-card { padding: 40px 24px; }
+    .error-number { font-size: 5rem; }
+    .error-actions { flex-direction: column; align-items: center; }
+    .btn-home, .btn-back { width: 100%; justify-content: center; }
+  }
 </style>
 </head>
-
 <body>
 
-<div class="container">
+<div class="bg-glow"></div>
+<div class="particles" id="particles"></div>
 
-<h1>404</h1>
+<div class="error-card">
+  <!-- Logo -->
+  <a href="index.html" class="error-logo">
+    <img src="logo-removebg-preview.webp" alt="Stackly Foundation">
+  </a>
 
-<p>
-Sorry, the page you are looking for is currently unavailable.
-</p>
+  <!-- Icon -->
+  <div class="error-icon">
+    <i class="fas fa-map-signs"></i>
+  </div>
 
-<a href="index.html">
-Back To Home
-</a>
+  <!-- 404 -->
+  <div class="error-number">404</div>
 
-</div>
+  <h1 class="error-title">Page Not Found</h1>
 
+  <p class="error-desc">
+    Oops! The page you're looking for doesn't exist or may have been moved. Let's get you back on track.
+  </p>
+
+  <!-- Action Buttons -->
+  <div class="error-actions">
+    <a href="index.html" class="btn-home">
+      <i class="fas fa-home"></i>
+      <span>Back to Home</span>
+    </a>
+    <button onclick="history.back()" class="btn-back">
+      <i class="fas fa-arrow-left"></i>
+      <span>Go Back</span>
+    </button>
+  </div>
+
+
+<script>
+  // Particles
+  (function() {
+    const c = document.getElementById("particles");
+    if (!c) return;
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement("div");
+      p.className = "particle";
+      const s = Math.random() * 3 + 1.5;
+      p.style.cssText = `left:${Math.random()*100}%;width:${s}px;height:${s}px;animation-duration:${Math.random()*18+14}s;animation-delay:${Math.random()*16}s;`;
+      c.appendChild(p);
+    }
+  })();
+</script>
 </body>
 </html>
