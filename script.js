@@ -1,15 +1,11 @@
 /* ==========================================
-   STACKLY FOUNDATION — script.js
-   All fixes applied:
-   - Loader hides properly
-   - Hamburger opens/closes with X animation
-   - Newsletter → redirects to 404.html
-   - Contact form → redirects to 404.html
+   STACKLY FOUNDATION — script.js  v3
 ========================================== */
 
 /* ---------- LOADER ---------- */
 window.addEventListener("load", () => {
   const loader = document.getElementById("loader");
+  if (!loader) return;
   setTimeout(() => {
     loader.style.opacity = "0";
     setTimeout(() => { loader.style.display = "none"; }, 600);
@@ -20,73 +16,69 @@ window.addEventListener("load", () => {
 (function createParticles() {
   const container = document.getElementById("particles");
   if (!container) return;
-  const count = window.innerWidth < 768 ? 15 : 30;
+  const count = window.innerWidth < 768 ? 12 : 28;
   for (let i = 0; i < count; i++) {
     const p = document.createElement("div");
     p.className = "particle";
     const size = Math.random() * 3 + 1.5;
-    p.style.cssText = `
-      left: ${Math.random() * 100}%;
-      width: ${size}px;
-      height: ${size}px;
-      animation-duration: ${Math.random() * 18 + 14}s;
-      animation-delay: ${Math.random() * 16}s;
-    `;
+    p.style.cssText = `left:${Math.random()*100}%;width:${size}px;height:${size}px;animation-duration:${Math.random()*18+14}s;animation-delay:${Math.random()*16}s;`;
     container.appendChild(p);
   }
 })();
 
-/* ---------- NAVBAR + HAMBURGER ---------- */
-const header   = document.getElementById("header");
-const menuBtn  = document.getElementById("menuBtn");
-const navLinks = document.getElementById("navLinks");
-const navCloseBtn = document.getElementById("navCloseBtn");
-
+/* ---------- NAVBAR SCROLL ---------- */
+const header = document.getElementById("header");
 window.addEventListener("scroll", () => {
-  header.classList.toggle("scrolled", window.scrollY > 80);
+  if (header) header.classList.toggle("scrolled", window.scrollY > 80);
 });
 
-function openMenu() {
-  navLinks.classList.add("open");
+/* ---------- HAMBURGER + MOBILE MENU ---------- */
+const menuBtn        = document.getElementById("menuBtn");
+const mobileMenu     = document.getElementById("mobileMenu");
+const mobileMenuClose = document.getElementById("mobileMenuClose");
+const mobileLoginBtn = document.getElementById("mobileLoginBtn");
+
+function openMobileMenu() {
+  if (!mobileMenu || !menuBtn) return;
+  mobileMenu.classList.add("open");
   menuBtn.classList.add("open");
   document.body.style.overflow = "hidden";
 }
-function closeMenu() {
-  navLinks.classList.remove("open");
+function closeMobileMenu() {
+  if (!mobileMenu || !menuBtn) return;
+  mobileMenu.classList.remove("open");
   menuBtn.classList.remove("open");
   document.body.style.overflow = "";
 }
 
-if (menuBtn) {
-  menuBtn.addEventListener("click", () => {
-    navLinks.classList.contains("open") ? closeMenu() : openMenu();
+if (menuBtn) menuBtn.addEventListener("click", () => {
+  mobileMenu?.classList.contains("open") ? closeMobileMenu() : openMobileMenu();
+});
+if (mobileMenuClose) mobileMenuClose.addEventListener("click", closeMobileMenu);
+
+// Close on backdrop click
+if (mobileMenu) {
+  mobileMenu.addEventListener("click", (e) => {
+    if (e.target === mobileMenu) closeMobileMenu();
   });
 }
 
-// Close button inside menu
-if (navCloseBtn) {
-  navCloseBtn.addEventListener("click", closeMenu);
+// Mobile nav links close the menu then navigate
+document.querySelectorAll(".mobile-nav-link").forEach(link => {
+  link.addEventListener("click", closeMobileMenu);
+});
+
+// Mobile login button
+if (mobileLoginBtn) {
+  mobileLoginBtn.addEventListener("click", () => {
+    closeMobileMenu();
+    openLoginModal();
+  });
 }
-
-// Close nav on any nav link click
-document.querySelectorAll(".nav-links a").forEach(link => {
-  link.addEventListener("click", closeMenu);
-});
-
-// Close on backdrop tap (click outside menu on overlay)
-document.addEventListener("click", (e) => {
-  if (
-    navLinks.classList.contains("open") &&
-    !navLinks.contains(e.target) &&
-    !menuBtn.contains(e.target)
-  ) {
-    closeMenu();
-  }
-});
 
 /* ---------- ACTIVE NAV ON SCROLL ---------- */
 const sections   = document.querySelectorAll("section[id]");
-const navAnchors = document.querySelectorAll(".nav-links a");
+const navAnchors = document.querySelectorAll(".nav-links li a");
 
 window.addEventListener("scroll", () => {
   let current = "";
@@ -97,30 +89,33 @@ window.addEventListener("scroll", () => {
     a.classList.remove("active");
     if (a.getAttribute("href") === `#${current}`) a.classList.add("active");
   });
-});
+}, { passive: true });
 
 /* ---------- HERO SLIDER ---------- */
-const slides         = document.querySelectorAll(".hero-slide");
-const dotsContainer  = document.getElementById("sliderDots");
-let   currentSlide   = 0;
+const slides        = document.querySelectorAll(".hero-slide");
+const dotsContainer = document.getElementById("sliderDots");
+let   currentSlide  = 0;
 
-slides.forEach((_, i) => {
-  const dot = document.createElement("div");
-  dot.className = "slider-dot" + (i === 0 ? " active" : "");
-  dot.addEventListener("click", () => goToSlide(i));
-  dotsContainer.appendChild(dot);
-});
+if (dotsContainer && slides.length) {
+  slides.forEach((_, i) => {
+    const dot = document.createElement("div");
+    dot.className = "slider-dot" + (i === 0 ? " active" : "");
+    dot.addEventListener("click", () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+}
 
 function goToSlide(idx) {
   slides[currentSlide].classList.remove("active");
-  document.querySelectorAll(".slider-dot")[currentSlide].classList.remove("active");
+  const dots = document.querySelectorAll(".slider-dot");
+  if (dots[currentSlide]) dots[currentSlide].classList.remove("active");
   currentSlide = idx;
   slides[currentSlide].classList.add("active");
-  document.querySelectorAll(".slider-dot")[currentSlide].classList.add("active");
+  if (dots[currentSlide]) dots[currentSlide].classList.add("active");
 }
 
 setInterval(() => {
-  goToSlide((currentSlide + 1) % slides.length);
+  if (slides.length) goToSlide((currentSlide + 1) % slides.length);
 }, 4500);
 
 /* ---------- SCROLL REVEAL ---------- */
@@ -130,22 +125,23 @@ function revealOnScroll() {
   const items = document.querySelectorAll(".reveal");
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-        obs.unobserve(entry.target);
-        if (entry.target.classList.contains("impact") && !counterDone) {
-          counterDone = true;
-          setTimeout(runCounters, 400);
-        }
-        if (entry.target.classList.contains("donation")) {
-          setTimeout(() => {
-            const fill = document.getElementById("progressFill");
-            if (fill) fill.style.width = "75%";
-          }, 400);
-        }
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("active");
+      obs.unobserve(entry.target);
+      // trigger counters when impact section visible
+      if (entry.target.classList.contains("impact") && !counterDone) {
+        counterDone = true;
+        setTimeout(runCounters, 400);
+      }
+      // trigger donation progress bar
+      if (entry.target.classList.contains("donation")) {
+        setTimeout(() => {
+          const fill = document.getElementById("progressFill");
+          if (fill) fill.style.width = "75%";
+        }, 400);
       }
     });
-  }, { threshold: 0.07, rootMargin: "0px 0px -50px 0px" });
+  }, { threshold: 0.07, rootMargin: "0px 0px -40px 0px" });
   items.forEach(el => obs.observe(el));
 }
 document.addEventListener("DOMContentLoaded", revealOnScroll);
@@ -157,13 +153,11 @@ function runCounters() {
     const target   = +counter.dataset.target;
     const duration = 1800;
     let   start    = null;
-
-    const tick = (timestamp) => {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
+    const tick = (ts) => {
+      if (!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
       const eased    = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      const value    = Math.floor(eased * target);
-      counter.textContent = value.toLocaleString("en-IN") + (progress === 1 ? "+" : "");
+      counter.textContent = Math.floor(eased * target).toLocaleString("en-IN") + (progress === 1 ? "+" : "");
       if (progress < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
@@ -184,59 +178,161 @@ document.querySelectorAll(".da-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".da-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
-    const customInput = document.getElementById("customAmt");
-    if (customInput) customInput.value = "";
+    const inp = document.getElementById("customAmt");
+    if (inp) inp.value = btn.dataset.amt;
   });
 });
-
 document.getElementById("customAmt")?.addEventListener("input", () => {
   document.querySelectorAll(".da-btn").forEach(b => b.classList.remove("active"));
 });
 
-/* ---------- NEWSLETTER FORM → redirect to 404.html ---------- */
+/* ---------- NEWSLETTER FORM ---------- */
 const nlForm = document.getElementById("newsletterForm");
 if (nlForm) {
   nlForm.addEventListener("submit", e => {
     e.preventDefault();
-    const name  = nlForm.querySelector('input[type="text"]').value.trim();
-    const email = nlForm.querySelector('input[type="email"]').value.trim();
-    if (!name || !email) return;
-
-    const btn  = nlForm.querySelector("button");
-    const orig = btn.innerHTML;
+    const nameInput  = nlForm.querySelector('input[type="text"]');
+    const emailInput = nlForm.querySelector('input[type="email"]');
+    if (!nameInput.value.trim() || !emailInput.value.trim()) {
+      nameInput.style.borderColor  = !nameInput.value.trim()  ? "#f87171" : "";
+      emailInput.style.borderColor = !emailInput.value.trim() ? "#f87171" : "";
+      return;
+    }
+    const btn  = nlForm.querySelector("button[type='submit']");
     btn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
     btn.style.background = "#22c55e";
-    setTimeout(() => {
-      window.location.href = "404.html";
-    }, 900);
+    setTimeout(() => { window.location.href = "404.html"; }, 800);
   });
 }
 
-/* ---------- CONTACT FORM → redirect to 404.html ---------- */
+/* ---------- CONTACT FORM ---------- */
 const contactForm = document.getElementById("contactForm");
 if (contactForm) {
   contactForm.addEventListener("submit", e => {
     e.preventDefault();
-    const name  = contactForm.querySelector('input[type="text"]').value.trim();
-    const email = contactForm.querySelector('input[type="email"]').value.trim();
-    const msg   = document.getElementById("contactMsg");
-
-    if (!name || !email) {
+    const inputs = contactForm.querySelectorAll("input[required], textarea[required]");
+    let   valid  = true;
+    inputs.forEach(inp => {
+      if (!inp.value.trim()) {
+        inp.style.borderColor = "#f87171";
+        valid = false;
+      } else {
+        inp.style.borderColor = "";
+      }
+    });
+    if (!valid) {
+      const msg = document.getElementById("contactMsg");
       msg.style.color = "#f87171";
       msg.textContent = "Please fill in all required fields.";
       return;
     }
+    const btn = contactForm.querySelector(".btn-primary");
+    btn.innerHTML = '<i class="fas fa-check"></i> Sending…';
+    btn.disabled  = true;
+    const msg = document.getElementById("contactMsg");
+    msg.style.color   = "#a3e635";
+    msg.textContent   = "Thank you! Redirecting…";
+    setTimeout(() => { window.location.href = "404.html"; }, 800);
+  });
+}
 
-    const btn  = contactForm.querySelector(".btn-primary");
-    const orig = btn.innerHTML;
-    btn.innerHTML  = '<i class="fas fa-check"></i> Message Sent!';
-    btn.disabled   = true;
-    msg.style.color = "#a3e635";
-    msg.textContent = "Thank you! Redirecting...";
+/* ---------- LOGIN MODAL ---------- */
+const loginModal    = document.getElementById("loginModal");
+const loginOpenBtn  = document.getElementById("loginOpenBtn");
+const modalCloseBtn = document.getElementById("modalCloseBtn");
+const loginForm     = document.getElementById("loginForm");
+const togglePass    = document.getElementById("togglePass");
 
-    setTimeout(() => {
-      window.location.href = "404.html";
-    }, 900);
+function openLoginModal() {
+  if (!loginModal) return;
+  loginModal.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeLoginModal() {
+  if (!loginModal) return;
+  loginModal.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+if (loginOpenBtn)  loginOpenBtn.addEventListener("click",  openLoginModal);
+if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeLoginModal);
+
+// Close on overlay click
+if (loginModal) {
+  loginModal.addEventListener("click", (e) => {
+    if (e.target === loginModal) closeLoginModal();
+  });
+}
+
+// Close on Escape key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") { closeLoginModal(); closeMobileMenu(); }
+});
+
+// Toggle password visibility
+if (togglePass) {
+  togglePass.addEventListener("click", () => {
+    const passInput = document.getElementById("loginPassword");
+    const icon = togglePass.querySelector("i");
+    if (passInput.type === "password") {
+      passInput.type = "text";
+      icon.className = "fas fa-eye-slash";
+    } else {
+      passInput.type = "password";
+      icon.className = "fas fa-eye";
+    }
+  });
+}
+
+// Login form validation + redirect
+if (loginForm) {
+  loginForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const name  = document.getElementById("loginName");
+    const email = document.getElementById("loginEmail");
+    const pass  = document.getElementById("loginPassword");
+    const nameErr  = document.getElementById("nameErr");
+    const emailErr = document.getElementById("emailErr");
+    const passErr  = document.getElementById("passErr");
+
+    let valid = true;
+
+    // Name
+    if (!name.value.trim()) {
+      name.classList.add("input-error");
+      nameErr.textContent = "Full name is required.";
+      valid = false;
+    } else { name.classList.remove("input-error"); nameErr.textContent = ""; }
+
+    // Email
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.value.trim()) {
+      email.classList.add("input-error");
+      emailErr.textContent = "Email address is required.";
+      valid = false;
+    } else if (!emailRe.test(email.value)) {
+      email.classList.add("input-error");
+      emailErr.textContent = "Enter a valid email address.";
+      valid = false;
+    } else { email.classList.remove("input-error"); emailErr.textContent = ""; }
+
+    // Password
+    if (!pass.value) {
+      pass.classList.add("input-error");
+      passErr.textContent = "Password is required.";
+      valid = false;
+    } else if (pass.value.length < 6) {
+      pass.classList.add("input-error");
+      passErr.textContent = "Password must be at least 6 characters.";
+      valid = false;
+    } else { pass.classList.remove("input-error"); passErr.textContent = ""; }
+
+    if (!valid) return;
+
+    const btn = loginForm.querySelector(".modal-submit");
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in…';
+    btn.disabled  = true;
+    setTimeout(() => { window.location.href = "404.html"; }, 900);
   });
 }
 
@@ -245,12 +341,8 @@ const topBtn = document.getElementById("topBtn");
 window.addEventListener("scroll", () => {
   if (!topBtn) return;
   topBtn.style.display = window.scrollY > 500 ? "flex" : "none";
-  topBtn.style.alignItems = "center";
-  topBtn.style.justifyContent = "center";
-});
-topBtn?.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+}, { passive: true });
+topBtn?.addEventListener("click", () => window.scrollTo({ top:0, behavior:"smooth" }));
 
 /* ---------- AUTO YEAR ---------- */
 const yearEl = document.getElementById("year");
@@ -262,7 +354,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const target = document.querySelector(this.getAttribute("href"));
     if (!target) return;
     e.preventDefault();
-    const offset = 80;
-    window.scrollTo({ top: target.offsetTop - offset, behavior: "smooth" });
+    window.scrollTo({ top: target.offsetTop - 80, behavior: "smooth" });
   });
 });
