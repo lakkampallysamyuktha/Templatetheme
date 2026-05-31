@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Stackly Foundation | Empowering Communities</title>
 <link rel="stylesheet" href="style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,31 +26,82 @@
   </div>
 </div>
 
+<!-- LOGIN MODAL OVERLAY -->
+<div id="loginModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Login">
+  <div class="modal-card">
+    <button class="modal-close" id="modalCloseBtn" aria-label="Close"><i class="fas fa-times"></i></button>
+    <div class="modal-header">
+      <div class="modal-icon"><i class="fas fa-user-circle"></i></div>
+      <h2>Welcome Back</h2>
+      <p>Sign in to your Stackly Foundation account</p>
+    </div>
+    <form id="loginForm" class="modal-form" novalidate>
+      <div class="mf-group">
+        <label>Full Name <span class="req">*</span></label>
+        <div class="mf-input-wrap">
+          <i class="fas fa-user"></i>
+          <input type="text" id="loginName" placeholder="John Doe" required>
+        </div>
+        <span class="mf-error" id="nameErr"></span>
+      </div>
+      <div class="mf-group">
+        <label>Email Address <span class="req">*</span></label>
+        <div class="mf-input-wrap">
+          <i class="fas fa-envelope"></i>
+          <input type="email" id="loginEmail" placeholder="john@example.com" required>
+        </div>
+        <span class="mf-error" id="emailErr"></span>
+      </div>
+      <div class="mf-group">
+        <label>Password <span class="req">*</span></label>
+        <div class="mf-input-wrap">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="loginPassword" placeholder="Enter your password" required>
+          <button type="button" class="mf-eye" id="togglePass" aria-label="Toggle password"><i class="fas fa-eye"></i></button>
+        </div>
+        <span class="mf-error" id="passErr"></span>
+      </div>
+      <div class="mf-row">
+        <label class="mf-check">
+          <input type="checkbox" id="rememberMe">
+          <span>Remember me</span>
+        </label>
+        <a href="404.html" class="mf-forgot">Forgot password?</a>
+      </div>
+      <button type="submit" class="btn-primary btn-full modal-submit">
+        <span>Sign In</span> <i class="fas fa-arrow-right"></i>
+      </button>
+      <p class="modal-divider"><span>or</span></p>
+      <button type="button" class="btn-social" onclick="window.location.href='404.html'">
+        <i class="fab fa-google"></i> Continue with Google
+      </button>
+      <p class="modal-footer-text">Don't have an account? <a href="404.html">Sign up free</a></p>
+    </form>
+  </div>
+</div>
+
 <!-- BACK TO TOP -->
 <button id="topBtn" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
 
 <!-- NAVBAR -->
 <header id="header">
-  <nav class="navbar">
+  <nav class="navbar"> 
     <a href="index.html" class="nav-logo">
       <img src="logo-removebg-preview.webp" alt="Stackly Foundation Logo" class="nav-logo-img">
     </a>
     <ul class="nav-links" id="navLinks">
-      <!-- Close button inside mobile menu -->
-      <li class="nav-close-li">
-        <button class="nav-close-btn" id="navCloseBtn" aria-label="Close menu">
-          <i class="fas fa-times"></i>
-        </button>
-      </li>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#programs">Programs</a></li>
-      <li><a href="#impact">Impact</a></li>
-      <li><a href="#team">Team</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="404.html">About</a></li>
+      <li><a href="404.html">Programs</a></li>
+      <li><a href="404.html">Impact</a></li>
+      <li><a href="404.html">Team</a></li>
+      <li><a href="404.html">Contact</a></li>
       <li class="nav-cta-li"><a href="404.html" class="nav-donate-btn">Donate Now</a></li>
     </ul>
     <div class="nav-right">
+      <button class="nav-login-btn" id="loginOpenBtn" aria-label="Login">
+        <i class="fas fa-user"></i><span>Login</span>
+      </button>
       <a href="404.html" class="nav-donate-desktop">Donate Now</a>
       <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -58,6 +109,30 @@
     </div>
   </nav>
 </header>
+
+<!-- MOBILE MENU OVERLAY (separate from nav) -->
+<div class="mobile-menu-overlay" id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+      <i class="fas fa-times"></i>
+    </button>
+    <a href="index.html" class="mobile-menu-logo">
+      <img src="logo-removebg-preview.webp" alt="Stackly">
+    </a>
+    <nav class="mobile-nav">
+      <a href="404.html" class="mobile-nav-link">Home</a>
+      <a href="404.html" class="mobile-nav-link">About</a>
+      <a href="404.html" class="mobile-nav-link">Programs</a>
+      <a href="404.html" class="mobile-nav-link">Impact</a>
+      <a href="404.html" class="mobile-nav-link">Team</a>
+      <a href="404.html" class="mobile-nav-link">Contact</a>
+    </nav>
+    <div class="mobile-menu-actions">
+      <button class="mobile-login-btn" id="mobileLoginBtn"><i class="fas fa-user"></i> Login</button>
+      <a href="404.html" class="btn-primary mobile-donate-btn"><i class="fas fa-heart"></i> Donate Now</a>
+    </div>
+  </div>
+</div>
 
 <!-- HERO -->
 <section id="home" class="hero">
@@ -108,6 +183,7 @@
       <div class="about-media">
         <div class="about-img-main">
           <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800" alt="NGO work">
+          <div class="about-img-shine"></div>
         </div>
         <div class="about-img-float">
           <img src="https://images.unsplash.com/photo-1593113598332-cd59a93f7d35?w=400" alt="Impact">
@@ -115,6 +191,14 @@
         <div class="about-badge-float">
           <div class="abf-number">8+</div>
           <div class="abf-text">Years of<br>Impact</div>
+        </div>
+        <!-- Extra floating stat -->
+        <div class="about-stat-float">
+          <i class="fas fa-users"></i>
+          <div>
+            <strong>50K+</strong>
+            <span>Lives Changed</span>
+          </div>
         </div>
       </div>
       <div class="about-content">
@@ -180,42 +264,42 @@
       <p class="section-sub">Six pillars of change that address the most critical needs of underserved communities.</p>
     </div>
     <div class="programs-grid">
-      <div class="program-card prog-1">
+      <a href="404.html" class="program-card prog-1">
         <div class="pc-icon"><i class="fas fa-book-open"></i></div>
         <h3>Education</h3>
         <p>Providing quality education, digital learning and school development support for children in rural and urban slums.</p>
-        <a href="404.html" class="pc-link">Learn more <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="program-card prog-2">
+        <span class="pc-link">Learn more <i class="fas fa-arrow-right"></i></span>
+      </a>
+      <a href="404.html" class="program-card prog-2">
         <div class="pc-icon"><i class="fas fa-heartbeat"></i></div>
         <h3>Healthcare</h3>
         <p>Delivering healthcare services, medical camps and wellness programs to underserved communities across India.</p>
-        <a href="404.html" class="pc-link">Learn more <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="program-card prog-3">
+        <span class="pc-link">Learn more <i class="fas fa-arrow-right"></i></span>
+      </a>
+      <a href="404.html" class="program-card prog-3">
         <div class="pc-icon"><i class="fas fa-female"></i></div>
         <h3>Women Empowerment</h3>
         <p>Empowering women through skill development, leadership training and entrepreneurship programs.</p>
-        <a href="404.html" class="pc-link">Learn more <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="program-card prog-4">
+        <span class="pc-link">Learn more <i class="fas fa-arrow-right"></i></span>
+      </a>
+      <a href="404.html" class="program-card prog-4">
         <div class="pc-icon"><i class="fas fa-briefcase"></i></div>
         <h3>Livelihood</h3>
         <p>Creating sustainable employment opportunities and income sources for underprivileged families.</p>
-        <a href="404.html" class="pc-link">Learn more <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="program-card prog-5">
+        <span class="pc-link">Learn more <i class="fas fa-arrow-right"></i></span>
+      </a>
+      <a href="404.html" class="program-card prog-5">
         <div class="pc-icon"><i class="fas fa-seedling"></i></div>
         <h3>Environment</h3>
         <p>Promoting sustainability through plantation drives, waste management and environmental awareness campaigns.</p>
-        <a href="404.html" class="pc-link">Learn more <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="program-card prog-6">
+        <span class="pc-link">Learn more <i class="fas fa-arrow-right"></i></span>
+      </a>
+      <a href="404.html" class="program-card prog-6">
         <div class="pc-icon"><i class="fas fa-hands-helping"></i></div>
         <h3>Disaster Response</h3>
         <p>Providing emergency relief, rehabilitation and rebuilding support during natural disasters and crises.</p>
-        <a href="404.html" class="pc-link">Learn more <i class="fas fa-arrow-right"></i></a>
-      </div>
+        <span class="pc-link">Learn more <i class="fas fa-arrow-right"></i></span>
+      </a>
     </div>
   </div>
 </section>
@@ -235,7 +319,8 @@
           <button class="da-btn" data-amt="5000">₹5,000</button>
         </div>
         <div class="donation-custom">
-          <input type="number" placeholder="Enter custom amount" id="customAmt">
+          <!-- MANDATORY field -->
+          <input type="number" placeholder="Enter custom amount (required)" id="customAmt" min="1" required>
         </div>
         <a href="404.html" class="btn-primary btn-white">
           <i class="fas fa-heart"></i> Donate Now
@@ -353,7 +438,6 @@
       <div class="gallery-item"><img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600" alt="Support"><div class="gi-caption">Support</div></div>
       <div class="gallery-item"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600" alt="Children"><div class="gi-caption">Children</div></div>
       <div class="gallery-item"><img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600" alt="Environment"><div class="gi-caption">Environment</div></div>
-      <!-- Duplicate for infinite scroll -->
       <div class="gallery-item"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600" alt="Education"><div class="gi-caption">Education</div></div>
       <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600" alt="Community"><div class="gi-caption">Community</div></div>
       <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600" alt="Volunteers"><div class="gi-caption">Volunteers</div></div>
@@ -419,7 +503,7 @@
         </div>
         <div class="faq-item">
           <button class="faq-question">How can I volunteer?<span class="fq-icon"><i class="fas fa-plus"></i></span></button>
-          <div class="faq-answer"><p>Register through our volunteer form and our team will reach out with available opportunities matching your skills and schedule. We have opportunities for weekends and full-time commitments.</p></div>
+          <div class="faq-answer"><p>Register through our volunteer form and our team will reach out with available opportunities matching your skills and schedule.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-question">What programs does Stackly Foundation offer?<span class="fq-icon"><i class="fas fa-plus"></i></span></button>
@@ -427,7 +511,7 @@
         </div>
         <div class="faq-item">
           <button class="faq-question">Where does my donation go?<span class="fq-icon"><i class="fas fa-plus"></i></span></button>
-          <div class="faq-answer"><p>Your donations directly support educational initiatives, medical camps, community welfare projects, and social impact programs. We maintain full transparency with annual reports.</p></div>
+          <div class="faq-answer"><p>Your donations directly support educational initiatives, medical camps, community welfare projects, and social impact programs.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-question">How can I stay updated?<span class="fq-icon"><i class="fas fa-plus"></i></span></button>
@@ -449,7 +533,7 @@
         <p>Get updates on programs, impact stories, events and volunteer opportunities delivered to your inbox.</p>
       </div>
       <div class="nl-right">
-        <form id="newsletterForm" class="nl-form">
+        <form id="newsletterForm" class="nl-form" novalidate>
           <div class="nl-field">
             <i class="fas fa-user"></i>
             <input type="text" placeholder="Your full name" required>
@@ -510,23 +594,23 @@
         <div class="contact-form-card">
           <h3>Send Us a Message</h3>
           <p>We'll get back to you as soon as possible.</p>
-          <form class="cform" id="contactForm">
+          <form class="cform" id="contactForm" novalidate>
             <div class="cf-row">
               <div class="cf-group">
-                <label>Your Name *</label>
+                <label>Your Name <span class="req">*</span></label>
                 <input type="text" placeholder="John Doe" required>
               </div>
               <div class="cf-group">
-                <label>Email Address *</label>
+                <label>Email Address <span class="req">*</span></label>
                 <input type="email" placeholder="john@example.com" required>
               </div>
             </div>
             <div class="cf-group">
-              <label>Subject *</label>
+              <label>Subject <span class="req">*</span></label>
               <input type="text" placeholder="How can we help?" required>
             </div>
             <div class="cf-group">
-              <label>Your Message *</label>
+              <label>Your Message <span class="req">*</span></label>
               <textarea rows="5" placeholder="Tell us more about your inquiry..." required></textarea>
             </div>
             <button type="submit" class="btn-primary btn-full">
@@ -557,12 +641,14 @@
           <a href="404.html" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
-      <div class="footer-col">      
-        <a href="#home">Home</a>
-        <a href="#about">About Us</a>
-        <a href="#programs">Programs</a>
-        <a href="#impact">Impact</a>
-        <a href="#contact">Contact</a>
+      <!-- QUICK LINKS with heading -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="404.html">About Us</a>
+        <a href="404.html">Programs</a>
+        <a href="404.html">Impact</a>
+        <a href="404.html">Contact</a>
       </div>
       <div class="footer-col">
         <h4>Our Programs</h4>
