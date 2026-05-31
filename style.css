@@ -168,7 +168,7 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 @keyframes loaderBar { 0%{transform:translateX(-150%)} 100%{transform:translateX(280%)} }
 
 /* ==========================================
-   LOGIN MODAL
+   LOGIN MODAL  ← ALL FIXES HERE
 ========================================== */
 .modal-overlay {
   position: fixed;
@@ -177,12 +177,14 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   backdrop-filter: blur(8px);
   z-index: 99998;
   display: flex;
-  align-items: center;
+  align-items: center;         /* ✅ centre vertically */
   justify-content: center;
-  padding: 20px;
+  padding: 20px;               /* ✅ breathing room on all sides */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.35s ease, visibility 0.35s ease;
+  /* ✅ allow scrolling if viewport is very short */
+  overflow-y: auto;
 }
 .modal-overlay.open {
   opacity: 1;
@@ -192,20 +194,30 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   background: var(--card);
   border: 1px solid rgba(163,230,53,0.15);
   border-radius: var(--radius-lg);
-  padding: 48px 44px;
+  padding: 40px 36px;          /* ✅ slightly tighter than before */
   width: 100%;
   max-width: 460px;
+  max-height: calc(100vh - 40px); /* ✅ never taller than screen */
+  overflow-y: auto;            /* ✅ scrolls inside if content is tall */
   position: relative;
+  /* ✅ keep card from touching edges on short screens */
+  margin: auto;
   transform: translateY(30px) scale(0.96);
   transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
   box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(163,230,53,0.06);
+  /* ✅ smooth scrollbar inside card */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(163,230,53,0.2) transparent;
 }
+.modal-card::-webkit-scrollbar { width:4px; }
+.modal-card::-webkit-scrollbar-thumb { background:rgba(163,230,53,0.2); border-radius:4px; }
 .modal-overlay.open .modal-card {
   transform: translateY(0) scale(1);
 }
 .modal-close {
-  position: absolute;
-  top: 20px; right: 20px;
+  position: sticky;            /* ✅ stays visible even when card scrolls */
+  top: 0;
+  float: right;
   width: 36px; height: 36px;
   border-radius: 50%;
   background: rgba(255,255,255,0.06);
@@ -215,21 +227,23 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   cursor: pointer;
   font-size: 0.9rem;
   transition: 0.3s;
+  z-index: 10;
+  margin-bottom: 8px;
 }
 .modal-close:hover { background:rgba(163,230,53,0.12); color:var(--green); border-color:var(--green); }
-.modal-header { text-align:center; margin-bottom:32px; }
+.modal-header { text-align:center; margin-bottom:28px; }
 .modal-icon {
-  width: 64px; height: 64px;
+  width: 60px; height: 60px;
   background: linear-gradient(135deg, rgba(163,230,53,0.12), rgba(34,197,94,0.08));
   border: 1px solid rgba(163,230,53,0.2);
   border-radius: 20px;
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 16px;
-  font-size: 1.8rem; color: var(--green);
+  margin: 0 auto 14px;
+  font-size: 1.6rem; color: var(--green);
 }
-.modal-header h2 { font-family:var(--font-display); font-size:1.6rem; font-weight:700; color:#fff; margin-bottom:6px; }
-.modal-header p { color:var(--muted-2); font-size:0.9rem; }
-.modal-form { display:flex; flex-direction:column; gap:16px; }
+.modal-header h2 { font-family:var(--font-display); font-size:1.5rem; font-weight:700; color:#fff; margin-bottom:6px; }
+.modal-header p { color:var(--muted-2); font-size:0.88rem; }
+.modal-form { display:flex; flex-direction:column; gap:14px; }
 .mf-group { display:flex; flex-direction:column; gap:6px; }
 .mf-group label { font-size:0.78rem; font-weight:600; color:var(--muted-2); text-transform:uppercase; letter-spacing:0.5px; }
 .mf-input-wrap {
@@ -311,7 +325,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 }
 .nav-logo-img:hover { opacity:0.85; }
 
-/* Desktop links */
 .nav-links { display:flex; align-items:center; gap:4px; }
 .nav-links li a {
   color:rgba(255,255,255,0.8); font-size:0.88rem; font-weight:500;
@@ -320,7 +333,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .nav-links li a:hover,.nav-links li a.active { color:var(--green); background:rgba(163,230,53,0.06); }
 .nav-cta-li { display:none; }
 
-/* Login button in nav */
 .nav-login-btn {
   display:inline-flex; align-items:center; gap:7px;
   padding:9px 18px;
@@ -362,7 +374,7 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .menu-btn.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
 
 /* ==========================================
-   MOBILE MENU OVERLAY (NEW — replaces nav-links approach)
+   MOBILE MENU OVERLAY
 ========================================== */
 .mobile-menu-overlay {
   position: fixed;
@@ -517,13 +529,11 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .reveal.active { opacity:1; transform:translateY(0); }
 
 /* ==========================================
-   ABOUT — Enhanced animations
+   ABOUT
 ========================================== */
 .about { padding:120px 0; overflow:visible; }
 .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
 .about-media { position:relative; }
-
-/* Main image with shine effect */
 .about-img-main {
   border-radius:var(--radius-lg); overflow:hidden;
   aspect-ratio:4/5; position:relative;
@@ -534,8 +544,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   transition:transform 1s ease;
 }
 .about-media:hover .about-img-main img { transform:scale(1.06); }
-
-/* Shine sweep animation */
 .about-img-shine {
   position:absolute; inset:0; z-index:2;
   background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.08) 50%,transparent 60%);
@@ -546,8 +554,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   0%{transform:translateX(-100%)}
   40%,100%{transform:translateX(200%)}
 }
-
-/* Floating small image */
 .about-img-float {
   position:absolute; bottom:-30px; right:-30px;
   width:170px; height:170px;
@@ -557,8 +563,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 }
 .about-img-float img { width:100%; height:100%; object-fit:cover; }
 @keyframes floatImg { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-10px) rotate(1deg)} }
-
-/* 8+ years badge */
 .about-badge-float {
   position:absolute; top:30px; left:-24px;
   background:linear-gradient(135deg,var(--green),var(--green-3));
@@ -569,8 +573,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 @keyframes badgePulse { 0%,100%{box-shadow:0 12px 30px rgba(163,230,53,0.3)} 50%{box-shadow:0 16px 40px rgba(163,230,53,0.5)} }
 .abf-number { font-family:var(--font-display); font-size:2rem; font-weight:900; line-height:1; }
 .abf-text { font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-top:4px; }
-
-/* Extra stat float (new) */
 .about-stat-float {
   position:absolute; bottom:50px; left:-40px;
   background:var(--card-2); border:1px solid var(--border-hover);
@@ -583,7 +585,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .about-stat-float i { color:var(--green); font-size:1.2rem; }
 .about-stat-float strong { display:block; font-family:var(--font-display); font-size:1.1rem; color:var(--green); }
 .about-stat-float span { font-size:0.72rem; color:var(--muted-2); }
-
 .about-content { display:flex; flex-direction:column; gap:20px; }
 .about-lead { font-size:1.1rem; color:var(--text); font-weight:500; line-height:1.7; }
 .about-body { color:var(--muted-2); line-height:1.8; }
@@ -631,7 +632,7 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .reveal.active .ic-bar span { transform:scaleX(1); }
 
 /* ==========================================
-   PROGRAMS — entire card is the link
+   PROGRAMS
 ========================================== */
 .programs { padding:120px 0; }
 .programs-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
@@ -931,20 +932,32 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
 
 /* ==========================================
    MOBILE — 768px
-   KEY FIX: no negative margins, no overflow issues
 ========================================== */
 @media (max-width:768px) {
-  /* base */
   html, body { overflow-x:hidden; width:100%; }
   .container { padding:0 16px; }
 
-  /* hide desktop nav links + donate on mobile */
+  /* ✅ Modal fix on mobile */
+  .modal-overlay { padding:12px; align-items:flex-start; padding-top:60px; }
+  .modal-card {
+    padding:28px 18px;
+    border-radius:var(--radius);
+    max-height:calc(100vh - 72px);
+  }
+  .modal-icon { width:48px; height:48px; font-size:1.3rem; border-radius:14px; }
+  .modal-header { margin-bottom:20px; }
+  .modal-header h2 { font-size:1.25rem; }
+  .modal-header p { font-size:0.82rem; }
+  .modal-form { gap:12px; }
+  .mf-row { flex-direction:column; align-items:flex-start; gap:8px; }
+  .mf-input-wrap input { font-size:16px; } /* ✅ prevents iOS zoom on focus */
+
+  /* nav */
   .nav-links { display:none !important; }
   .nav-donate-desktop { display:none; }
   .nav-login-btn span { display:none; }
   .nav-login-btn { padding:9px 12px; }
   .menu-btn { display:flex; }
-
   .nav-logo-img { height:52px; }
   .navbar { padding:14px 4%; }
   #header.scrolled .navbar { padding:10px 4%; }
@@ -961,7 +974,7 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .hero-scroll-hint { display:none; }
   .hero-slider-dots { right:12px; bottom:20px; }
 
-  /* about — remove floats that cause overflow */
+  /* about */
   .about { padding:80px 0; }
   .about-media { padding-bottom:0; }
   .about-img-main { aspect-ratio:16/10; }
@@ -1018,12 +1031,6 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .cf-row { grid-template-columns:1fr; gap:12px; }
   .contact-grid { gap:36px; }
 
-  /* modal */
-  .modal-card { padding:36px 24px; border-radius:var(--radius); }
-  .modal-icon { width:52px; height:52px; font-size:1.4rem; }
-  .modal-header h2 { font-size:1.3rem; }
-  .mf-row { flex-direction:column; align-items:flex-start; gap:8px; }
-
   /* footer */
   footer { padding:56px 0 28px; }
   .footer-grid { grid-template-columns:1fr; gap:32px; }
@@ -1031,7 +1038,6 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .footer-bottom-links { flex-wrap:wrap; justify-content:center; gap:12px; }
   .footer-logo-img { height:68px; }
 
-  /* section headers */
   .section-header-centered { margin-bottom:40px; }
   .section-heading { font-size:clamp(1.7rem,5vw,2.2rem); }
 }
@@ -1051,4 +1057,7 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .about-badge-float { left:8px; top:8px; padding:10px 12px; }
   .abf-number { font-size:1.3rem; }
   .newsletter-inner { padding:28px 16px; }
+  /* ✅ even tighter modal on very small phones */
+  .modal-overlay { padding:8px; padding-top:50px; }
+  .modal-card { padding:22px 14px; }
 }
