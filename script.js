@@ -1,10 +1,4 @@
-/* ==========================================
-   STACKLY FOUNDATION — script.js  v4
-   ✅ FIX: All DOM queries wrapped in DOMContentLoaded
-         so GitHub Pages doesn't break the login button
-========================================== */
 
-/* ---------- LOADER (runs immediately, fine) ---------- */
 window.addEventListener("load", () => {
   const loader = document.getElementById("loader");
   if (!loader) return;
@@ -14,10 +8,6 @@ window.addEventListener("load", () => {
   }, 1000);
 });
 
-/* ---------- ALL DOM-DEPENDENT CODE ---------- */
-/* ✅ Wrapping everything in DOMContentLoaded is the key fix
-      for GitHub Pages — it guarantees the HTML is parsed
-      before getElementById is called                        */
 document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- PARTICLES ---------- */
@@ -248,8 +238,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------- LOGIN MODAL ---------- */
-  /* ✅ These getElementById calls now run AFTER the DOM is ready,
-        fixing the GitHub Pages "login button does nothing" bug    */
   const loginModal    = document.getElementById("loginModal");
   const loginOpenBtn  = document.getElementById("loginOpenBtn");
   const modalCloseBtn = document.getElementById("modalCloseBtn");
@@ -266,8 +254,6 @@ document.addEventListener("DOMContentLoaded", () => {
     loginModal.classList.remove("open");
     document.body.style.overflow = "";
   }
-
-  /* ✅ Attach events only if elements exist */
   if (loginOpenBtn)  loginOpenBtn.addEventListener("click",  openLoginModal);
   if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeLoginModal);
 
@@ -368,4 +354,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-}); // end DOMContentLoaded
+}); 
