@@ -442,7 +442,7 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   flex-shrink: 0;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  /* FIX: Always on top, always visible */
+  
   position: relative;
   z-index: 10001;
 }
