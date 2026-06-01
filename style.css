@@ -1,6 +1,4 @@
-/* ==========================================
-   RESET & CSS VARIABLES
-========================================== */
+
 :root {
   --bg: #04080f;
   --bg-2: #080e1a;
@@ -168,7 +166,7 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 @keyframes loaderBar { 0%{transform:translateX(-150%)} 100%{transform:translateX(280%)} }
 
 /* ==========================================
-   LOGIN MODAL  ← ALL FIXES HERE
+   LOGIN MODAL 
 ========================================== */
 .modal-overlay {
   position: fixed;
@@ -177,13 +175,12 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   backdrop-filter: blur(8px);
   z-index: 99998;
   display: flex;
-  align-items: center;         /* ✅ centre vertically */
+  align-items: center;         
   justify-content: center;
-  padding: 20px;               /* ✅ breathing room on all sides */
+  padding: 20px;               
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
-  /* ✅ allow scrolling if viewport is very short */
+  transition: opacity 0.35s ease, visibility 0.35s ease; 
   overflow-y: auto;
 }
 .modal-overlay.open {
@@ -194,18 +191,16 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   background: var(--card);
   border: 1px solid rgba(163,230,53,0.15);
   border-radius: var(--radius-lg);
-  padding: 40px 36px;          /* ✅ slightly tighter than before */
+  padding: 40px 36px;         
   width: 100%;
   max-width: 460px;
-  max-height: calc(100vh - 40px); /* ✅ never taller than screen */
-  overflow-y: auto;            /* ✅ scrolls inside if content is tall */
+  max-height: calc(100vh - 40px); 
+  overflow-y: auto;            
   position: relative;
-  /* ✅ keep card from touching edges on short screens */
   margin: auto;
   transform: translateY(30px) scale(0.96);
   transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
   box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(163,230,53,0.06);
-  /* ✅ smooth scrollbar inside card */
   scrollbar-width: thin;
   scrollbar-color: rgba(163,230,53,0.2) transparent;
 }
@@ -215,7 +210,7 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   transform: translateY(0) scale(1);
 }
 .modal-close {
-  position: sticky;            /* ✅ stays visible even when card scrolls */
+  position: sticky;           
   top: 0;
   float: right;
   width: 36px; height: 36px;
@@ -936,8 +931,6 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
 @media (max-width:768px) {
   html, body { overflow-x:hidden; width:100%; }
   .container { padding:0 16px; }
-
-  /* ✅ Modal fix on mobile */
   .modal-overlay { padding:12px; align-items:flex-start; padding-top:60px; }
   .modal-card {
     padding:28px 18px;
@@ -950,7 +943,7 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .modal-header p { font-size:0.82rem; }
   .modal-form { gap:12px; }
   .mf-row { flex-direction:column; align-items:flex-start; gap:8px; }
-  .mf-input-wrap input { font-size:16px; } /* ✅ prevents iOS zoom on focus */
+  .mf-input-wrap input { font-size:16px; } 
 
   /* nav */
   .nav-links { display:none !important; }
@@ -1057,7 +1050,6 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .about-badge-float { left:8px; top:8px; padding:10px 12px; }
   .abf-number { font-size:1.3rem; }
   .newsletter-inner { padding:28px 16px; }
-  /* ✅ even tighter modal on very small phones */
   .modal-overlay { padding:8px; padding-top:50px; }
   .modal-card { padding:22px 14px; }
 }
