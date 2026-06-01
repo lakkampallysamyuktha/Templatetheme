@@ -111,11 +111,15 @@
 </header>
 
 <!-- MOBILE MENU OVERLAY -->
+<!-- FIX: close button now lives in its own topbar div, NOT inside mobile-menu-inner -->
 <div class="mobile-menu-overlay" id="mobileMenu">
-  <div class="mobile-menu-inner">
+  <!-- FIX: dedicated top bar so close button is always visible at the top -->
+  <div class="mobile-menu-topbar">
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
       <i class="fas fa-times"></i>
     </button>
+  </div>
+  <div class="mobile-menu-inner">
     <a href="index.html" class="mobile-menu-logo">
       <img src="logo-removebg-preview.webp" alt="Stackly">
     </a>
@@ -436,7 +440,6 @@
       <div class="gallery-item"><img src="gallery6.webp" alt="Volunteers"><div class="gi-caption">Volunteers</div></div>
       <div class="gallery-item"><img src="gallery7.webp" alt="Healthcare"><div class="gi-caption">Healthcare</div></div>
       <div class="gallery-item"><img src="gallery8.webp" alt="Environment"><div class="gi-caption">Children</div></div>
-      <!-- duplicates for infinite scroll -->
       <div class="gallery-item"><img src="gallery1.webp" alt="Education"><div class="gi-caption">Education</div></div>
       <div class="gallery-item"><img src="gallery2.webp" alt="Community"><div class="gi-caption">Community</div></div>
       <div class="gallery-item"><img src="gallery3.webp" alt="Support"><div class="gi-caption">Support</div></div>
