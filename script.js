@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const mobileLoginBtn  = document.getElementById("mobileLoginBtn");
   const loginModal      = document.getElementById("loginModal");
 
-  /* FIX: Safely check if login modal is open before resetting overflow */
   function isLoginModalOpen() {
     return loginModal && loginModal.classList.contains("open");
   }
@@ -51,14 +50,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!mobileMenu || !menuBtn) return;
     mobileMenu.classList.remove("open");
     menuBtn.classList.remove("open");
-    /* FIX: Only reset body overflow if login modal is also not open */
     if (!isLoginModalOpen()) {
       document.body.style.overflow = "";
     }
   }
 
   if (menuBtn) {
-    /* FIX: Use both click and touchend for cross-device support */
     menuBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       mobileMenu?.classList.contains("open") ? closeMobileMenu() : openMobileMenu();
@@ -71,14 +68,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (mobileMenuClose) {
-    mobileMenuClose.addEventListener("click", closeMobileMenu);
-    /* FIX: touchend for close button too */
+    mobileMenuClose.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeMobileMenu();
+    });
     mobileMenuClose.addEventListener("touchend", (e) => {
       e.preventDefault();
+      e.stopPropagation();
       closeMobileMenu();
     });
   }
 
+  /* FIX: clicking the overlay background (but NOT topbar or inner) closes menu */
   if (mobileMenu) {
     mobileMenu.addEventListener("click", (e) => {
       if (e.target === mobileMenu) closeMobileMenu();
@@ -276,7 +277,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function closeLoginModal() {
     if (!loginModal) return;
     loginModal.classList.remove("open");
-    /* FIX: Only reset overflow if mobile menu is also not open */
     if (!mobileMenu?.classList.contains("open")) {
       document.body.style.overflow = "";
     }
@@ -291,12 +291,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* Close on Escape */
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") { closeLoginModal(); closeMobileMenu(); }
   });
 
-  /* Toggle password visibility */
   if (togglePass) {
     togglePass.addEventListener("click", () => {
       const passInput = document.getElementById("loginPassword");
@@ -312,7 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* Login form validation */
   if (loginForm) {
     loginForm.addEventListener("submit", e => {
       e.preventDefault();
