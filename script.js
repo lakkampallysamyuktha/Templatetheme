@@ -78,8 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
       closeMobileMenu();
     });
   }
-
-  /* FIX: clicking the overlay background (but NOT topbar or inner) closes menu */
   if (mobileMenu) {
     mobileMenu.addEventListener("click", (e) => {
       if (e.target === mobileMenu) closeMobileMenu();
