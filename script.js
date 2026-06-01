@@ -1,4 +1,3 @@
-
 window.addEventListener("load", () => {
   const loader = document.getElementById("loader");
   if (!loader) return;
@@ -34,6 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const mobileMenu      = document.getElementById("mobileMenu");
   const mobileMenuClose = document.getElementById("mobileMenuClose");
   const mobileLoginBtn  = document.getElementById("mobileLoginBtn");
+  const loginModal      = document.getElementById("loginModal");
+
+  /* FIX: Safely check if login modal is open before resetting overflow */
+  function isLoginModalOpen() {
+    return loginModal && loginModal.classList.contains("open");
+  }
 
   function openMobileMenu() {
     if (!mobileMenu || !menuBtn) return;
@@ -41,19 +46,38 @@ document.addEventListener("DOMContentLoaded", () => {
     menuBtn.classList.add("open");
     document.body.style.overflow = "hidden";
   }
+
   function closeMobileMenu() {
     if (!mobileMenu || !menuBtn) return;
     mobileMenu.classList.remove("open");
     menuBtn.classList.remove("open");
-    document.body.style.overflow = "";
+    /* FIX: Only reset body overflow if login modal is also not open */
+    if (!isLoginModalOpen()) {
+      document.body.style.overflow = "";
+    }
   }
 
   if (menuBtn) {
-    menuBtn.addEventListener("click", () => {
+    /* FIX: Use both click and touchend for cross-device support */
+    menuBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      mobileMenu?.classList.contains("open") ? closeMobileMenu() : openMobileMenu();
+    });
+    menuBtn.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       mobileMenu?.classList.contains("open") ? closeMobileMenu() : openMobileMenu();
     });
   }
-  if (mobileMenuClose) mobileMenuClose.addEventListener("click", closeMobileMenu);
+
+  if (mobileMenuClose) {
+    mobileMenuClose.addEventListener("click", closeMobileMenu);
+    /* FIX: touchend for close button too */
+    mobileMenuClose.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      closeMobileMenu();
+    });
+  }
 
   if (mobileMenu) {
     mobileMenu.addEventListener("click", (e) => {
@@ -238,7 +262,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------- LOGIN MODAL ---------- */
-  const loginModal    = document.getElementById("loginModal");
   const loginOpenBtn  = document.getElementById("loginOpenBtn");
   const modalCloseBtn = document.getElementById("modalCloseBtn");
   const loginForm     = document.getElementById("loginForm");
@@ -249,11 +272,16 @@ document.addEventListener("DOMContentLoaded", () => {
     loginModal.classList.add("open");
     document.body.style.overflow = "hidden";
   }
+
   function closeLoginModal() {
     if (!loginModal) return;
     loginModal.classList.remove("open");
-    document.body.style.overflow = "";
+    /* FIX: Only reset overflow if mobile menu is also not open */
+    if (!mobileMenu?.classList.contains("open")) {
+      document.body.style.overflow = "";
+    }
   }
+
   if (loginOpenBtn)  loginOpenBtn.addEventListener("click",  openLoginModal);
   if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeLoginModal);
 
@@ -354,4 +382,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-}); 
+});
