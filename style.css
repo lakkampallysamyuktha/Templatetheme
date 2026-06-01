@@ -125,7 +125,7 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .btn-white:hover { background:var(--green) !important; box-shadow:0 12px 35px rgba(163,230,53,0.35); }
 .btn-full { width:100%; justify-content:center; }
 
-/* FIX: Donate button in donation section — stays inline-flex, not block */
+
 .btn-donate-fixed {
   display: inline-flex !important;
   width: auto !important;
@@ -491,11 +491,9 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   transition:var(--transition); position:relative; overflow:hidden;
   display:flex; flex-direction:column; gap:14px;
   text-decoration:none; color:inherit; cursor:pointer;
-  /* FIX: isolation ensures children stay visible */
   isolation: isolate;
 }
 .program-card::after { content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.4s; background:radial-gradient(ellipse at top left,rgba(163,230,53,0.06),transparent 60%); pointer-events:none; z-index:0; }
-/* FIX: all direct children above ::after */
 .program-card > * { position:relative; z-index:1; }
 .program-card:hover { transform:translateY(-8px); border-color:var(--border-hover); box-shadow:var(--shadow-green); }
 .program-card:hover::after { opacity:1; }
@@ -558,7 +556,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .team-card:hover .tc-img img { transform:scale(1.08); }
 .tc-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(4,8,15,0.8),transparent 50%); opacity:0; transition:opacity 0.4s; display:flex; align-items:flex-end; justify-content:center; padding-bottom:20px; }
 .team-card:hover .tc-overlay { opacity:1; }
-/* FIX: Allow 4 icons to fit */
 .tc-social { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
 .tc-social a { width:34px; height:34px; background:rgba(255,255,255,0.1); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.75rem; transition:0.3s; }
 .tc-social a:hover { background:var(--green); color:#04080f; border-color:var(--green); }
@@ -629,7 +626,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .nl-field input { width:100%; padding:15px 18px 15px 44px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:var(--radius-sm); color:#fff; font-size:0.92rem; font-family:var(--font-body); outline:none; transition:border-color 0.3s; }
 .nl-field input:focus { border-color:rgba(163,230,53,0.4); }
 .nl-field input::placeholder { color:var(--muted); }
-/* FIX: error text below newsletter inputs */
 .nl-error { font-size:0.75rem; color:#f87171; min-height:14px; padding-left:4px; display:block; }
 .nl-note { font-size:0.78rem; color:var(--muted); display:flex; align-items:center; gap:6px; }
 .nl-note i { color:var(--green); }
@@ -663,7 +659,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .cform input:focus,.cform textarea:focus { border-color:rgba(163,230,53,0.4); background:rgba(163,230,53,0.02); }
 .cform input::placeholder,.cform textarea::placeholder { color:rgba(255,255,255,0.2); }
 .cform textarea { resize:vertical; min-height:130px; }
-/* FIX: per-field error spans */
 .cf-error { font-size:0.75rem; color:#f87171; min-height:14px; display:block; }
 
 /* ==========================================
