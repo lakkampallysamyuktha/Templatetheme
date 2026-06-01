@@ -88,10 +88,18 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("click", closeMobileMenu);
   });
 
+  /* ---------- FIX: Login button goes to 404.html (no modal) ---------- */
+  const loginOpenBtn = document.getElementById("loginOpenBtn");
+  if (loginOpenBtn) {
+    loginOpenBtn.addEventListener("click", () => {
+      window.location.href = "404.html";
+    });
+  }
+
   if (mobileLoginBtn) {
     mobileLoginBtn.addEventListener("click", () => {
       closeMobileMenu();
-      openLoginModal();
+      window.location.href = "404.html";
     });
   }
 
@@ -212,56 +220,143 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------- NEWSLETTER FORM ---------- */
+  /* FIX: proper email validation, inline errors, reset fields, direct redirect */
   const nlForm = document.getElementById("newsletterForm");
   if (nlForm) {
+    const nlNameInput  = document.getElementById("nlName");
+    const nlEmailInput = document.getElementById("nlEmail");
+    const nlNameErr    = document.getElementById("nlNameErr");
+    const nlEmailErr   = document.getElementById("nlEmailErr");
+    const emailRe      = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function clearNlErrors() {
+      if (nlNameInput)  { nlNameInput.style.borderColor  = ""; }
+      if (nlEmailInput) { nlEmailInput.style.borderColor = ""; }
+      if (nlNameErr)    nlNameErr.textContent  = "";
+      if (nlEmailErr)   nlEmailErr.textContent = "";
+    }
+
+    if (nlNameInput) {
+      nlNameInput.addEventListener("input", () => {
+        if (nlNameInput.value.trim()) {
+          nlNameInput.style.borderColor = "";
+          if (nlNameErr) nlNameErr.textContent = "";
+        }
+      });
+    }
+    if (nlEmailInput) {
+      nlEmailInput.addEventListener("input", () => {
+        if (emailRe.test(nlEmailInput.value)) {
+          nlEmailInput.style.borderColor = "";
+          if (nlEmailErr) nlEmailErr.textContent = "";
+        }
+      });
+    }
+
     nlForm.addEventListener("submit", e => {
       e.preventDefault();
-      const nameInput  = nlForm.querySelector('input[type="text"]');
-      const emailInput = nlForm.querySelector('input[type="email"]');
-      if (!nameInput.value.trim() || !emailInput.value.trim()) {
-        if (nameInput)  nameInput.style.borderColor  = !nameInput.value.trim()  ? "#f87171" : "";
-        if (emailInput) emailInput.style.borderColor = !emailInput.value.trim() ? "#f87171" : "";
-        return;
+      clearNlErrors();
+      let valid = true;
+
+      if (!nlNameInput || !nlNameInput.value.trim()) {
+        if (nlNameInput)  nlNameInput.style.borderColor  = "#f87171";
+        if (nlNameErr)    nlNameErr.textContent = "Please enter your full name.";
+        valid = false;
       }
-      const btn  = nlForm.querySelector("button[type='submit']");
-      if (btn) {
-        btn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
-        btn.style.background = "#22c55e";
+      if (!nlEmailInput || !nlEmailInput.value.trim()) {
+        if (nlEmailInput) nlEmailInput.style.borderColor = "#f87171";
+        if (nlEmailErr)   nlEmailErr.textContent = "Email address is required.";
+        valid = false;
+      } else if (!emailRe.test(nlEmailInput.value)) {
+        if (nlEmailInput) nlEmailInput.style.borderColor = "#f87171";
+        if (nlEmailErr)   nlEmailErr.textContent = "Please enter a valid email address.";
+        valid = false;
       }
-      setTimeout(() => { window.location.href = "404.html"; }, 800);
+
+      if (!valid) return;
+
+      /* FIX: Reset fields first, then redirect directly — no "Subscribed!" state */
+      if (nlNameInput)  nlNameInput.value  = "";
+      if (nlEmailInput) nlEmailInput.value = "";
+      clearNlErrors();
+      window.location.href = "404.html";
     });
   }
 
   /* ---------- CONTACT FORM ---------- */
+  /* FIX: inline per-field errors, email validation, no success message, direct redirect, form resets */
   const contactForm = document.getElementById("contactForm");
   if (contactForm) {
+    const cfName    = document.getElementById("cfName");
+    const cfEmail   = document.getElementById("cfEmail");
+    const cfSubject = document.getElementById("cfSubject");
+    const cfMessage = document.getElementById("cfMessage");
+    const cfNameErr    = document.getElementById("cfNameErr");
+    const cfEmailErr   = document.getElementById("cfEmailErr");
+    const cfSubjectErr = document.getElementById("cfSubjectErr");
+    const cfMessageErr = document.getElementById("cfMessageErr");
+    const emailRe      = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function setFieldError(input, errEl, msg) {
+      if (input)  input.style.borderColor = msg ? "#f87171" : "";
+      if (errEl)  errEl.textContent = msg || "";
+    }
+
+    /* Live clear on typing */
+    [cfName, cfSubject, cfMessage].forEach((inp, i) => {
+      const errEl = [cfNameErr, cfSubjectErr, cfMessageErr][i];
+      if (inp) {
+        inp.addEventListener("input", () => {
+          if (inp.value.trim()) setFieldError(inp, errEl, "");
+        });
+      }
+    });
+    if (cfEmail) {
+      cfEmail.addEventListener("input", () => {
+        if (emailRe.test(cfEmail.value)) setFieldError(cfEmail, cfEmailErr, "");
+      });
+    }
+
     contactForm.addEventListener("submit", e => {
       e.preventDefault();
-      const inputs = contactForm.querySelectorAll("input[required], textarea[required]");
       let valid = true;
-      inputs.forEach(inp => {
-        if (!inp.value.trim()) {
-          inp.style.borderColor = "#f87171";
-          valid = false;
-        } else {
-          inp.style.borderColor = "";
-        }
-      });
-      if (!valid) {
-        const msg = document.getElementById("contactMsg");
-        if (msg) { msg.style.color = "#f87171"; msg.textContent = "Please fill in all required fields."; }
-        return;
-      }
-      const btn = contactForm.querySelector(".btn-primary");
-      if (btn) { btn.innerHTML = '<i class="fas fa-check"></i> Sending…'; btn.disabled = true; }
-      const msg = document.getElementById("contactMsg");
-      if (msg) { msg.style.color = "#a3e635"; msg.textContent = "Thank you! Redirecting…"; }
-      setTimeout(() => { window.location.href = "404.html"; }, 800);
+
+      if (!cfName || !cfName.value.trim()) {
+        setFieldError(cfName, cfNameErr, "Please enter your name.");
+        valid = false;
+      } else { setFieldError(cfName, cfNameErr, ""); }
+
+      if (!cfEmail || !cfEmail.value.trim()) {
+        setFieldError(cfEmail, cfEmailErr, "Email address is required.");
+        valid = false;
+      } else if (!emailRe.test(cfEmail.value)) {
+        setFieldError(cfEmail, cfEmailErr, "Please enter a valid email address.");
+        valid = false;
+      } else { setFieldError(cfEmail, cfEmailErr, ""); }
+
+      if (!cfSubject || !cfSubject.value.trim()) {
+        setFieldError(cfSubject, cfSubjectErr, "Please enter a subject.");
+        valid = false;
+      } else { setFieldError(cfSubject, cfSubjectErr, ""); }
+
+      if (!cfMessage || !cfMessage.value.trim()) {
+        setFieldError(cfMessage, cfMessageErr, "Please enter your message.");
+        valid = false;
+      } else { setFieldError(cfMessage, cfMessageErr, ""); }
+
+      if (!valid) return;
+
+      /* FIX: Reset form, go directly to 404 — no "Thank you! Redirecting…" text */
+      contactForm.reset();
+      setFieldError(cfName, cfNameErr, "");
+      setFieldError(cfEmail, cfEmailErr, "");
+      setFieldError(cfSubject, cfSubjectErr, "");
+      setFieldError(cfMessage, cfMessageErr, "");
+      window.location.href = "404.html";
     });
   }
 
-  /* ---------- LOGIN MODAL ---------- */
-  const loginOpenBtn  = document.getElementById("loginOpenBtn");
+  /* ---------- LOGIN MODAL (kept for fallback but login btn goes to 404) ---------- */
   const modalCloseBtn = document.getElementById("modalCloseBtn");
   const loginForm     = document.getElementById("loginForm");
   const togglePass    = document.getElementById("togglePass");
@@ -280,7 +375,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (loginOpenBtn)  loginOpenBtn.addEventListener("click",  openLoginModal);
   if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeLoginModal);
 
   if (loginModal) {
@@ -317,7 +411,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const nameErr  = document.getElementById("nameErr");
       const emailErr = document.getElementById("emailErr");
       const passErr  = document.getElementById("passErr");
-
       let valid = true;
 
       if (!name.value.trim()) {
