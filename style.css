@@ -22,7 +22,6 @@
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'DM Sans', sans-serif;
 }
-
 *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; font-size:16px; }
 body {
@@ -40,7 +39,6 @@ ul { list-style:none; }
 button { font-family:var(--font-body); }
 em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .req { color:#f87171; }
-
 /* ==========================================
    UTILITIES
 ========================================== */
@@ -50,7 +48,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   padding: 0 40px;
   width: 100%;
 }
-
 .section-label {
   display: inline-block;
   font-size: 0.72rem;
@@ -65,7 +62,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   margin-bottom: 20px;
 }
 .section-label.light { color:#fff; background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.15); }
-
 .section-heading {
   font-family: var(--font-display);
   font-size: clamp(2rem,3.5vw,3rem);
@@ -74,7 +70,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   color: var(--white);
   margin-bottom: 16px;
 }
-
 .section-header-centered { text-align:center; margin-bottom:64px; }
 .section-header-centered .section-sub {
   max-width: 580px;
@@ -83,7 +78,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   font-size: 1rem;
   line-height: 1.8;
 }
-
 /* ==========================================
    BUTTONS
 ========================================== */
@@ -103,7 +97,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   text-decoration: none;
   position: relative;
   overflow: hidden;
-  /* Ensure text is always on top */
   isolation: isolate;
 }
 .btn-primary:hover {
@@ -111,7 +104,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   box-shadow: 0 12px 35px rgba(163,230,53,0.35);
   background: linear-gradient(135deg, var(--green-3), var(--green));
 }
-/* FIX: removed ::before pseudo-element that was covering text */
 
 .btn-ghost {
   display:inline-flex; align-items:center; gap:10px;
@@ -124,7 +116,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .btn-white { background:#fff !important; color:#04080f !important; }
 .btn-white:hover { background:var(--green) !important; box-shadow:0 12px 35px rgba(163,230,53,0.35); }
 .btn-full { width:100%; justify-content:center; }
-
 
 .btn-donate-fixed {
   display: inline-flex !important;
@@ -542,7 +533,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .dpc-stats { display:flex; gap:24px; padding-top:8px; border-top:1px solid var(--border); }
 .dpc-stats div { display:flex; align-items:center; gap:8px; font-size:0.83rem; color:var(--muted-2); }
 .dpc-stats i { color:var(--green); }
-
 /* ==========================================
    TEAM
 ========================================== */
@@ -563,7 +553,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .tc-info h3 { font-size:1.05rem; font-weight:700; color:#fff; margin-bottom:4px; }
 .tc-info p { color:var(--muted-2); font-size:0.85rem; margin-bottom:10px; }
 .tc-tag { display:inline-block; font-size:0.72rem; font-weight:600; color:var(--green); background:rgba(163,230,53,0.08); border:1px solid rgba(163,230,53,0.15); padding:4px 10px; border-radius:50px; }
-
 /* ==========================================
    GALLERY
 ========================================== */
@@ -679,14 +668,33 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
 .footer-col a:hover { color:var(--green); padding-left:6px; }
 .fc-info { display:flex; align-items:flex-start; gap:10px; color:var(--muted); font-size:0.85rem; margin-bottom:12px; }
 .fc-info i { color:var(--green); margin-top:2px; flex-shrink:0; }
-.footer-donate-btn { display:inline-flex; align-items:center; gap:8px; margin-top:8px; padding:10px 22px; background:linear-gradient(135deg,var(--green),var(--green-3)); color:#04080f; font-weight:700; font-size:0.85rem; border-radius:50px; transition:var(--transition); }
-.footer-donate-btn:hover { transform:translateY(-3px); box-shadow:0 8px 25px rgba(163,230,53,0.35); }
+/* ==========================================
+   FOOTER DONATE BUTTON 
+========================================== */
+.footer-donate-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 10px 22px;
+  background: linear-gradient(135deg, var(--green), var(--green-3));
+  color: #04080f;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 50px;
+  transition: var(--transition);
+}
+.footer-donate-btn:hover {
+  color: #04080f;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(163,230,53,0.35);
+}
 .footer-bottom { display:flex; justify-content:space-between; align-items:center; padding-top:24px; border-top:1px solid rgba(255,255,255,0.04); }
 .footer-bottom p { color:var(--muted); font-size:0.82rem; }
 .footer-bottom-links { display:flex; gap:20px; }
 .footer-bottom-links a { color:var(--muted); font-size:0.8rem; transition:0.3s; }
 .footer-bottom-links a:hover { color:var(--green); }
-
 /* ==========================================
    TABLET — 1100px
 ========================================== */
@@ -704,7 +712,6 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .faq-layout { grid-template-columns:1fr; gap:48px; }
   .faq-left { position:static; }
 }
-
 /* ==========================================
    SHOW HAMBURGER at 900px
 ========================================== */
@@ -714,7 +721,6 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .menu-btn { display:flex !important; }
   .nav-cta-li { display:none; }
 }
-
 /* ==========================================
    MOBILE — 768px
 ========================================== */
@@ -791,7 +797,6 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .section-header-centered { margin-bottom:40px; }
   .section-heading { font-size:clamp(1.7rem,5vw,2.2rem); }
 }
-
 /* ==========================================
    SMALL MOBILE — 480px
 ========================================== */
