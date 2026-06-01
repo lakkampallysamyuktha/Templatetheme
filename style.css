@@ -86,8 +86,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 
 /* ==========================================
    BUTTONS
-   FIX: Removed ::before overlay that hid text on hover;
-   now use background transition on the element itself
 ========================================== */
 .btn-primary {
   display: inline-flex;
@@ -549,7 +547,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 
 /* ==========================================
    TEAM
-   FIX: 4 social icons per card
 ========================================== */
 .team { padding:120px 0; }
 .team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
@@ -618,7 +615,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 
 /* ==========================================
    NEWSLETTER
-   FIX: inline error messages below fields
 ========================================== */
 .newsletter { padding:120px 0; }
 .newsletter-inner { background:linear-gradient(135deg,var(--card) 0%,var(--card-2) 100%); border:1px solid var(--border); border-radius:var(--radius-lg); padding:72px; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; position:relative; overflow:hidden; }
@@ -640,7 +636,6 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 
 /* ==========================================
    CONTACT
-   FIX: per-field error messages; no success text div
 ========================================== */
 .contact { padding:120px 0; }
 .contact-grid { display:grid; grid-template-columns:1fr 1.3fr; gap:60px; align-items:start; }
