@@ -99,6 +99,7 @@
       <li class="nav-cta-li"><a href="404.html" class="nav-donate-btn">Donate Now</a></li>
     </ul>
     <div class="nav-right">
+      <!-- FIX: Login button now goes to 404.html -->
       <button class="nav-login-btn" id="loginOpenBtn" aria-label="Login">
         <i class="fas fa-user"></i><span>Login</span>
       </button>
@@ -322,7 +323,8 @@
         <div class="donation-custom">
           <input type="number" placeholder="Enter custom amount (required)" id="customAmt" min="1" required>
         </div>
-        <a href="404.html" class="btn-primary btn-white">
+        <!-- FIX: Donate button kept as inline-flex, not block -->
+        <a href="404.html" class="btn-primary btn-donate-fixed">
           <i class="fas fa-heart"></i> Donate Now
         </a>
         <p class="donation-note"><i class="fas fa-shield-alt"></i> 100% Secure · Tax Exempt under 80G</p>
@@ -341,7 +343,7 @@
           </div>
           <div class="dpc-goal">Goal: ₹1,00,00,000</div>
           <div class="dpc-donors">
-            <div class="dpc-donor-faces"> 
+            <div class="dpc-donor-faces">
               <img src="Donation1.webp" alt="Donor 1">
               <img src="Donation2.webp" alt="Donor 2">
               <img src="Donation3.webp" alt="Donor 3">
@@ -372,8 +374,11 @@
           <img src="teammeber1.webp" alt="Sarah Johnson">
           <div class="tc-overlay">
             <div class="tc-social">
+              <!-- FIX: 4 social icons per card -->
               <a href="404.html"><i class="fab fa-linkedin-in"></i></a>
               <a href="404.html"><i class="fab fa-twitter"></i></a>
+              <a href="404.html"><i class="fab fa-facebook-f"></i></a>
+              <a href="404.html"><i class="fab fa-instagram"></i></a>
             </div>
           </div>
         </div>
@@ -390,6 +395,8 @@
             <div class="tc-social">
               <a href="404.html"><i class="fab fa-linkedin-in"></i></a>
               <a href="404.html"><i class="fab fa-twitter"></i></a>
+              <a href="404.html"><i class="fab fa-facebook-f"></i></a>
+              <a href="404.html"><i class="fab fa-instagram"></i></a>
             </div>
           </div>
         </div>
@@ -406,6 +413,8 @@
             <div class="tc-social">
               <a href="404.html"><i class="fab fa-linkedin-in"></i></a>
               <a href="404.html"><i class="fab fa-twitter"></i></a>
+              <a href="404.html"><i class="fab fa-facebook-f"></i></a>
+              <a href="404.html"><i class="fab fa-instagram"></i></a>
             </div>
           </div>
         </div>
@@ -533,15 +542,18 @@
         <p>Get updates on programs, impact stories, events and volunteer opportunities delivered to your inbox.</p>
       </div>
       <div class="nl-right">
-        <form id="newsletterForm" class="nl-form" novalidate>
+        <!-- FIX: novalidate removed so browser + JS both validate; fields reset before redirect -->
+        <form id="newsletterForm" class="nl-form">
           <div class="nl-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Your full name" required>
+            <input type="text" id="nlName" placeholder="Your full name" required>
           </div>
+          <span class="nl-error" id="nlNameErr"></span>
           <div class="nl-field">
             <i class="fas fa-envelope"></i>
-            <input type="email" placeholder="Your email address" required>
+            <input type="email" id="nlEmail" placeholder="Your email address" required>
           </div>
+          <span class="nl-error" id="nlEmailErr"></span>
           <button type="submit" class="btn-primary">
             Subscribe Now <i class="fas fa-paper-plane"></i>
           </button>
@@ -594,29 +606,33 @@
         <div class="contact-form-card">
           <h3>Send Us a Message</h3>
           <p>We'll get back to you as soon as possible.</p>
+          <!-- FIX: Validation messages inline per field; no success text; direct redirect -->
           <form class="cform" id="contactForm" novalidate>
             <div class="cf-row">
               <div class="cf-group">
                 <label>Your Name <span class="req">*</span></label>
-                <input type="text" placeholder="John Doe" required>
+                <input type="text" id="cfName" placeholder="John Doe" required>
+                <span class="cf-error" id="cfNameErr"></span>
               </div>
               <div class="cf-group">
                 <label>Email Address <span class="req">*</span></label>
-                <input type="email" placeholder="john@example.com" required>
+                <input type="email" id="cfEmail" placeholder="john@example.com" required>
+                <span class="cf-error" id="cfEmailErr"></span>
               </div>
             </div>
             <div class="cf-group">
               <label>Subject <span class="req">*</span></label>
-              <input type="text" placeholder="How can we help?" required>
+              <input type="text" id="cfSubject" placeholder="How can we help?" required>
+              <span class="cf-error" id="cfSubjectErr"></span>
             </div>
             <div class="cf-group">
               <label>Your Message <span class="req">*</span></label>
-              <textarea rows="5" placeholder="Tell us more about your inquiry..." required></textarea>
+              <textarea rows="5" id="cfMessage" placeholder="Tell us more about your inquiry..." required></textarea>
+              <span class="cf-error" id="cfMessageErr"></span>
             </div>
-            <button type="submit" class="btn-primary btn-full">
+            <button type="submit" class="btn-primary btn-full" id="contactSubmitBtn">
               Send Message <i class="fas fa-paper-plane"></i>
             </button>
-            <div id="contactMsg"></div>
           </form>
         </div>
       </div>
