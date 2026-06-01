@@ -387,7 +387,7 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 .menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ==========================================
-   MOBILE MENU OVERLAY  ← FIXED SECTION
+   MOBILE MENU OVERLAY  
 ========================================== */
 .mobile-menu-overlay {
   position: fixed;
@@ -396,22 +396,21 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   backdrop-filter: blur(20px);
   z-index: 9999;
   display: flex;
-  flex-direction: column;      /* FIX: column so close bar sits at top */
-  align-items: stretch;        /* FIX: stretch full width */
+  flex-direction: column;      
+  align-items: stretch;       
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s ease, visibility 0.4s ease;
-  overflow-y: auto;            /* FIX: allow scroll on very short viewports */
+  overflow-y: auto;           
 }
 .mobile-menu-overlay.open { opacity:1; visibility:visible; }
 
-/* FIX: Dedicated top bar that always holds the close button */
 .mobile-menu-topbar {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding: 16px 20px;
-  flex-shrink: 0;              /* never compress */
+  flex-shrink: 0;             
 }
 
 .mobile-menu-inner {
@@ -420,13 +419,13 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   align-items: center;
   gap: 8px;
   width: 100%;
-  padding: 0 24px 40px;        /* FIX: no top padding — topbar handles it */
+  padding: 0 24px 40px;        
   flex: 1;
   justify-content: center;
-  min-height: 0;               /* FIX: allow flex shrink properly */
+  min-height: 0;              
 }
 
-/* FIX: Close button — no longer absolute, lives in topbar */
+
 .mobile-menu-close {
   width: 44px;
   height: 44px;
