@@ -87,8 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".mobile-nav-link").forEach(link => {
     link.addEventListener("click", closeMobileMenu);
   });
-
-  /* ---------- FIX: Login button goes to 404.html (no modal) ---------- */
   const loginOpenBtn = document.getElementById("loginOpenBtn");
   if (loginOpenBtn) {
     loginOpenBtn.addEventListener("click", () => {
@@ -220,7 +218,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------- NEWSLETTER FORM ---------- */
-  /* FIX: proper email validation, inline errors, reset fields, direct redirect */
   const nlForm = document.getElementById("newsletterForm");
   if (nlForm) {
     const nlNameInput  = document.getElementById("nlName");
@@ -274,8 +271,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (!valid) return;
-
-      /* FIX: Reset fields first, then redirect directly — no "Subscribed!" state */
       if (nlNameInput)  nlNameInput.value  = "";
       if (nlEmailInput) nlEmailInput.value = "";
       clearNlErrors();
@@ -284,7 +279,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------- CONTACT FORM ---------- */
-  /* FIX: inline per-field errors, email validation, no success message, direct redirect, form resets */
   const contactForm = document.getElementById("contactForm");
   if (contactForm) {
     const cfName    = document.getElementById("cfName");
@@ -345,8 +339,6 @@ document.addEventListener("DOMContentLoaded", () => {
       } else { setFieldError(cfMessage, cfMessageErr, ""); }
 
       if (!valid) return;
-
-      /* FIX: Reset form, go directly to 404 — no "Thank you! Redirecting…" text */
       contactForm.reset();
       setFieldError(cfName, cfNameErr, "");
       setFieldError(cfEmail, cfEmailErr, "");
@@ -355,8 +347,6 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "404.html";
     });
   }
-
-  /* ---------- LOGIN MODAL (kept for fallback but login btn goes to 404) ---------- */
   const modalCloseBtn = document.getElementById("modalCloseBtn");
   const loginForm     = document.getElementById("loginForm");
   const togglePass    = document.getElementById("togglePass");
