@@ -1003,7 +1003,7 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .navbar { padding:14px 4%; }
   #header.scrolled .navbar { padding:10px 4%; }
 
-  /* FIX: mobile menu topbar tighter on small screens */
+ 
   .mobile-menu-topbar { padding:12px 16px; }
 
   .hero-content { padding:110px 16px 60px; }
