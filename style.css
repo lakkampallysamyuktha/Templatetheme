@@ -351,11 +351,9 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
 
 /* ==========================================
    HAMBURGER
-   FIX: Always define the element fully so
-   it's ready whenever display:flex is applied
 ========================================== */
 .menu-btn {
-  display: none; /* hidden by default on desktop */
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -368,11 +366,10 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   cursor: pointer;
   transition: 0.3s;
   flex-shrink: 0;
-  /* FIX: Ensure it's always clickable when visible */
   position: relative;
   z-index: 1001;
-  -webkit-tap-highlight-color: transparent; /* removes tap flash on iOS/Android */
-  touch-action: manipulation;              /* prevents double-tap zoom on mobile */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 .menu-btn:hover { background:rgba(163,230,53,0.15); border-color:var(--green); }
 .menu-btn span {
@@ -383,16 +380,14 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   border-radius: 2px;
   transition: 0.35s cubic-bezier(0.25,1,0.5,1);
   transform-origin: center;
-  /* FIX: Prevent spans from capturing pointer events so the button click registers */
   pointer-events: none;
 }
-/* Animate to X when open */
 .menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .menu-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ==========================================
-   MOBILE MENU OVERLAY
+   MOBILE MENU OVERLAY  ← FIXED SECTION
 ========================================== */
 .mobile-menu-overlay {
   position: fixed;
@@ -401,40 +396,59 @@ em { font-family:var(--font-display); font-style:italic; color:var(--green); }
   backdrop-filter: blur(20px);
   z-index: 9999;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;      /* FIX: column so close bar sits at top */
+  align-items: stretch;        /* FIX: stretch full width */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s ease, visibility 0.4s ease;
+  overflow-y: auto;            /* FIX: allow scroll on very short viewports */
 }
 .mobile-menu-overlay.open { opacity:1; visibility:visible; }
+
+/* FIX: Dedicated top bar that always holds the close button */
+.mobile-menu-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 16px 20px;
+  flex-shrink: 0;              /* never compress */
+}
+
 .mobile-menu-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
   width: 100%;
-  padding: 40px 24px;
-  position: relative;
+  padding: 0 24px 40px;        /* FIX: no top padding — topbar handles it */
+  flex: 1;
+  justify-content: center;
+  min-height: 0;               /* FIX: allow flex shrink properly */
 }
+
+/* FIX: Close button — no longer absolute, lives in topbar */
 .mobile-menu-close {
-  position: absolute;
-  top: 0; right: 24px;
-  width: 44px; height: 44px;
+  width: 44px;
+  height: 44px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 50%;
   color: rgba(255,255,255,0.7);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   font-size: 1.1rem;
   transition: 0.3s;
-  /* FIX: Ensure close button is always on top and clickable */
-  z-index: 10000;
+  flex-shrink: 0;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+  /* FIX: Always on top, always visible */
+  position: relative;
+  z-index: 10001;
 }
 .mobile-menu-close:hover { background:rgba(163,230,53,0.12); color:var(--green); border-color:var(--green); }
+
 .mobile-menu-logo img {
   height: 56px; width:auto;
   filter:brightness(0) saturate(100%) invert(76%) sepia(55%) saturate(600%) hue-rotate(46deg) brightness(102%) contrast(97%);
@@ -955,15 +969,12 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
 }
 
 /* ==========================================
-   FIX: Show hamburger at 900px so mid-size
-   laptops (900px–1024px) get the mobile menu
-   instead of a broken/cramped nav
+   SHOW HAMBURGER at 900px
 ========================================== */
 @media (max-width:900px) {
   .nav-links { display:none !important; }
   .nav-donate-desktop { display:none !important; }
   .menu-btn { display:flex !important; }
-  /* Show mobile donate + login inside hamburger menu instead */
   .nav-cta-li { display:none; }
 }
 
@@ -985,17 +996,17 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .modal-header p { font-size:0.82rem; }
   .modal-form { gap:12px; }
   .mf-row { flex-direction:column; align-items:flex-start; gap:8px; }
-  /* FIX: font-size 16px prevents iOS auto-zoom on input focus */
   .mf-input-wrap input { font-size:16px; }
 
-  /* nav */
   .nav-login-btn span { display:none; }
   .nav-login-btn { padding:9px 12px; }
   .nav-logo-img { height:52px; }
   .navbar { padding:14px 4%; }
   #header.scrolled .navbar { padding:10px 4%; }
 
-  /* hero */
+  /* FIX: mobile menu topbar tighter on small screens */
+  .mobile-menu-topbar { padding:12px 16px; }
+
   .hero-content { padding:110px 16px 60px; }
   .hero-badge { font-size:0.68rem; padding:7px 12px; letter-spacing:1px; margin-bottom:18px; }
   .hero-title { font-size:clamp(2rem,7.5vw,2.8rem); }
@@ -1007,7 +1018,6 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .hero-scroll-hint { display:none; }
   .hero-slider-dots { right:12px; bottom:20px; }
 
-  /* about */
   .about { padding:80px 0; }
   .about-media { padding-bottom:0; }
   .about-img-main { aspect-ratio:16/10; }
@@ -1018,18 +1028,15 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .about-features { grid-template-columns:1fr; }
   .about-img-shine { display:none; }
 
-  /* impact */
   .impact { padding:80px 0; }
   .impact-grid { grid-template-columns:1fr 1fr; gap:16px; }
   .impact-card { padding:28px 16px; }
   .impact-card h3 { font-size:2.2rem; }
 
-  /* programs */
   .programs { padding:80px 0; }
   .programs-grid { grid-template-columns:1fr; }
   .program-card { padding:28px 24px; }
 
-  /* donation */
   .donation { padding:80px 0; }
   .donation-inner { gap:36px; }
   .donation-progress-card { padding:24px 16px; }
@@ -1038,33 +1045,26 @@ footer { background:#020509; padding:80px 0 40px; border-top:1px solid var(--bor
   .donation-amounts { gap:8px; }
   .da-btn { padding:9px 16px; font-size:0.84rem; }
 
-  /* team */
   .team { padding:80px 0; }
   .team-grid { grid-template-columns:1fr; max-width:360px; margin:0 auto; }
 
-  /* gallery */
   .gallery { padding:60px 0; }
   .gallery-item { width:200px; height:160px; }
 
-  /* testimonials */
   .testimonials { padding:80px 0; }
   .testi-grid { grid-template-columns:1fr; }
 
-  /* faq */
   .faq { padding:80px 0; }
   .faq-layout { gap:36px; }
 
-  /* newsletter */
   .newsletter { padding:80px 0; }
   .newsletter-inner { padding:36px 20px; gap:32px; }
 
-  /* contact */
   .contact { padding:80px 0; }
   .contact-form-card { padding:24px 16px; }
   .cf-row { grid-template-columns:1fr; gap:12px; }
   .contact-grid { gap:36px; }
 
-  /* footer */
   footer { padding:56px 0 28px; }
   .footer-grid { grid-template-columns:1fr; gap:32px; }
   .footer-bottom { flex-direction:column; gap:12px; text-align:center; }
